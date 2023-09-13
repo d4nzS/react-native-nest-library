@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
+import AuthModal from './AuthModal';
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -18,9 +19,7 @@ const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
       style={styles.authLayout}
     >
       <Text style={styles.authLayoutTitle}>Cleverland</Text>
-      <View style={styles.authLayoutModal}>
-        {children}
-      </View>
+      <AuthModal title="Registartion">{children}</AuthModal>
     </LinearGradient>
   );
 };
@@ -37,13 +36,6 @@ const styles = StyleSheet.create({
     color: Colors.MAIN_WHITE,
     fontFamily: Fonts.MONTSERRAT_BOLD,
     fontSize: 28,
-    textAlign: 'center',
-  },
-  authLayoutModal: {
-    backgroundColor: Colors.MAIN_WHITE,
-    paddingVertical: 24,
-    paddingHorizontal: 16,
-    borderRadius: 16,
-    marginTop: 12
+    textAlign: 'center'
   }
 });
