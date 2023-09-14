@@ -7,19 +7,20 @@ import Fonts from '../../constants/fonts';
 import AuthModal from './AuthModal';
 
 interface AuthLayoutProps {
+  title: string;
   children: ReactNode;
 }
 
-const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
+const AuthLayout: FC<AuthLayoutProps> = ({ title, children }) => {
   return (
     <LinearGradient
       colors={['#F9D423', '#F83600']}
-      start={{ x: -1.9776 , y: 0 }}
+      start={{ x: -1.9776, y: 0 }}
       end={{ x: 1.5351, y: 0 }}
       style={styles.authLayout}
     >
       <Text style={styles.authLayoutTitle}>Cleverland</Text>
-      <AuthModal title="Registartion">{children}</AuthModal>
+      <AuthModal title={title}>{children}</AuthModal>
     </LinearGradient>
   );
 };

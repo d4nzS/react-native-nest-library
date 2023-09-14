@@ -1,15 +1,9 @@
 import { FC } from 'react';
-import { Text, View } from 'react-native';
-import AuthLayout from '../components/Auth/AuthLayout';
+
+import Registration from '../components/Auth/Registration';
 
 const RegistrationScreen: FC = () => {
-  return (
-    <AuthLayout>
-        <Text>
-          Registration
-        </Text>
-    </AuthLayout>
-  );
+  return <Registration/>;
 };
 
 export default RegistrationScreen;

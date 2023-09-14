@@ -10,6 +10,7 @@ SplashScreen.preventAutoHideAsync();
 
 const App: FC = () => {
   const [fontsLoaded] = useFonts({
+    [Fonts.MONTSERRAT_MEDIUM]: require('./assets/fonts/Montserrat-Medium.otf'),
     [Fonts.MONTSERRAT_BOLD]: require('./assets/fonts/Montserrat-Bold.otf')
   });
 
