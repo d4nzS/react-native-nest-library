@@ -1,22 +1,35 @@
 import { FC, useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-import Animated, { FadeInDown, FadeOutDown } from 'react-native-reanimated';
+import { Control, FieldValues, useController } from 'react-hook-form';
+import Animated, { FadeIn, FadeInDown, FadeOut, FadeOutDown } from 'react-native-reanimated';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
 interface FormControllerProps {
+  name: string;
   label: string;
-  errorMessage: string;
+  control: Control;
+  rules?: Object;
+  errorMessage?: string;
 }
 
-const FormController: FC<FormControllerProps> = ({ label, errorMessage }) => {
-  const [value, setValue] = useState<string>('');
+const FormController: FC<FormControllerProps> = ({
+                                                   name,
+                                                   label,
+                                                   control,
+                                                   rules,
+                                                   errorMessage
+                                                 }) => {
+  const {
+    field: { value, onChange },
+    fieldState: { invalid }
+  } = useController({
+    name,
+    control,
+    rules
+  });
   const [isFocused, setIsFocused] = useState<boolean>(false);
-
-  const changeTextInputHandler = (newValue: string): void => {
-    setValue(newValue);
-  };
 
   const focusTextInputHandler = (): void => {
     setIsFocused(true);
@@ -47,11 +60,19 @@ const FormController: FC<FormControllerProps> = ({ label, errorMessage }) => {
         value={value}
         placeholder={isPlaceholderVisible ? label : ''}
         style={styles.formControllerInput}
-        onChangeText={changeTextInputHandler}
+        onChangeText={onChange}
         onFocus={focusTextInputHandler}
         onBlur={blurTextInputHandler}
       />
-      <Text style={styles.formControllerHint}>{errorMessage}</Text>
+      {invalid && (
+        <Animated.Text
+          entering={FadeIn}
+          exiting={FadeOut}
+          style={styles.formControllerHint}
+        >
+          {errorMessage}
+        </Animated.Text>
+      )}
     </View>
   );
 };
