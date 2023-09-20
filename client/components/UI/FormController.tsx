@@ -7,17 +7,19 @@ import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
 interface FormControllerProps<T extends FieldValues> extends UseControllerProps<T> {
+  secureTextEntry?: boolean;
   label: string;
   errorMessage: string;
 }
 
 function FormController<T extends FieldValues>({
+                                                 secureTextEntry,
                                                  name,
                                                  control,
                                                  rules,
                                                  label,
                                                  errorMessage
-                                               }: FormControllerProps<T>) {
+                                               }: FormControllerProps<T>): JSX.Element {
   const {
     field: { value, onChange },
     fieldState: { invalid }
@@ -55,6 +57,7 @@ function FormController<T extends FieldValues>({
         </Animated.Text>
       )}
       <TextInput
+        secureTextEntry={secureTextEntry}
         value={value}
         placeholder={isPlaceholderVisible ? label : ''}
         placeholderTextColor={Colors.MAIN_DARK}
