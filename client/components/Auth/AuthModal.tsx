@@ -1,5 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
     marginTop: 12
   },
   authModalTitle: {
+    color: Colors.MAIN_DARK,
     fontFamily: Fonts.MONTSERRAT_BOLD,
     fontSize: 24,
     lineHeight: 30

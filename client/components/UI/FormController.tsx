@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { Control, FieldValues, useController } from 'react-hook-form';
+import { StyleSheet, TextInput, View } from 'react-native';
+import { Control, useController } from 'react-hook-form';
 import Animated, { FadeIn, FadeInDown, FadeOut, FadeOutDown } from 'react-native-reanimated';
 
 import Colors from '../../constants/colors';
@@ -59,6 +59,7 @@ const FormController: FC<FormControllerProps> = ({
       <TextInput
         value={value}
         placeholder={isPlaceholderVisible ? label : ''}
+        placeholderTextColor={Colors.MAIN_DARK}
         style={styles.formControllerInput}
         onChangeText={onChange}
         onFocus={focusTextInputHandler}
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.GREY_BLACK20,
     borderTopRightRadius: 8,
     borderTopLeftRadius: 8,
-    marginVertical: 36
+    marginVertical: 24
   },
   formControllerOpened: {
     paddingTop: 6,
@@ -97,12 +98,12 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.MONTSERRAT_MEDIUM,
     fontSize: 12,
     lineHeight: 16,
-    letterSpacing: 0.2
+    letterSpacing: 0.2,
+    marginBottom: 4
   },
   formControllerInput: {
-    fontFamily: Fonts.MONTSERRAT_MEDIUM,
-    letterSpacing: 0.1,
-    marginTop: 4
+    fontFamily: Fonts.MONTSERRAT_REGULAR,
+    letterSpacing: 0.1
   },
   formControllerHint: {
     color: Colors.MAIN_RED,

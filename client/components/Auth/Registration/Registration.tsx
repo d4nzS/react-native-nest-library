@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 
 import AuthLayout from '../AuthLayout';
 import FormController from '../../UI/FormController';
-import { USERNAME_PATTERN } from './constants';
+import { EMAIL_PATTERN, USERNAME_PATTERN } from './constants';
 
 const Registration: FC = () => {
   const { control, handleSubmit } = useForm({
@@ -19,12 +19,22 @@ const Registration: FC = () => {
       <FormController
         name="username"
         control={control}
+        label="Come up with a username"
         rules={{
           required: true,
           pattern: USERNAME_PATTERN
         }}
-        label="Come up with a username"
         errorMessage="Use Latin alphabet and numbers"
+      />
+      <FormController
+        name="email"
+        label="Email"
+        control={control}
+        rules={{
+          required: true,
+          pattern: EMAIL_PATTERN
+        }}
+        errorMessage="Please enter a valid email"
       />
     </AuthLayout>
   );
