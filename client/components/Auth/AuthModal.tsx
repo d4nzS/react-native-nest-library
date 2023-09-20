@@ -1,12 +1,11 @@
-import { FC, ReactNode } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
-interface AuthModalProps {
+interface AuthModalProps extends PropsWithChildren {
   title: string;
-  children: ReactNode;
 }
 
 const AuthModal: FC<AuthModalProps> = ({ title, children }) => {

@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, PropsWithChildren, ReactNode } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -6,9 +6,8 @@ import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import AuthModal from './AuthModal';
 
-interface AuthLayoutProps {
+interface AuthLayoutProps extends PropsWithChildren {
   title: string;
-  children: ReactNode;
 }
 
 const AuthLayout: FC<AuthLayoutProps> = ({ title, children }) => {
