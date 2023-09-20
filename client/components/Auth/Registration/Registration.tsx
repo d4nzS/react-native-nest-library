@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import AuthLayout from '../AuthLayout';
 import FormController from '../../UI/FormController';
 import { EMAIL_PATTERN, USERNAME_PATTERN } from './constants';
+import Button from '../../UI/Button';
 
 const Registration: FC = () => {
   const { control, handleSubmit } = useForm({
@@ -36,6 +37,7 @@ const Registration: FC = () => {
         }}
         errorMessage="Please enter a valid email"
       />
+      <Button>Next step</Button>
     </AuthLayout>
   );
 };

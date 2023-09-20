@@ -1,8 +1,8 @@
-import { FC, PropsWithChildren, ReactNode } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { FC, PropsWithChildren } from 'react';
+import { StyleSheet, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import Colors from '../../constants/colors';
+import Colors, { ORANGE_LINEAR_GRADIENT_PROPS } from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import AuthModal from './AuthModal';
 
@@ -13,9 +13,7 @@ interface AuthLayoutProps extends PropsWithChildren {
 const AuthLayout: FC<AuthLayoutProps> = ({ title, children }) => {
   return (
     <LinearGradient
-      colors={['#F9D423', '#F83600']}
-      start={{ x: -1.9776, y: 0 }}
-      end={{ x: 1.5351, y: 0 }}
+      {...ORANGE_LINEAR_GRADIENT_PROPS}
       style={styles.authLayout}
     >
       <Text style={styles.authLayoutTitle}>Cleverland</Text>
@@ -23,8 +21,6 @@ const AuthLayout: FC<AuthLayoutProps> = ({ title, children }) => {
     </LinearGradient>
   );
 };
-
-export default AuthLayout;
 
 const styles = StyleSheet.create({
   authLayout: {
@@ -39,3 +35,5 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 });
+
+export default AuthLayout;
