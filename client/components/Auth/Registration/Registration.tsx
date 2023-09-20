@@ -1,16 +1,33 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { StyleSheet, Text } from 'react-native';
 
 import AuthLayout from '../AuthLayout';
 import Fonts from '../../../constants/fonts';
 import Colors from '../../../constants/colors';
-import FirstRegistrationStep from './FirstRegistrationStep';
+import FirstRegistrationStep, { FirstRegistrationStepValues } from './FirstRegistrationStep';
+import { RegistrationSteps } from './constants';
+
+interface RegistrationValues extends FirstRegistrationStepValues {}
 
 const Registration: FC = () => {
+  const [registrationStepIndex, setRegistrationStepIndex] = useState<RegistrationSteps>(RegistrationSteps.FIRST);
+  const registrationValues: Partial<RegistrationValues> = {};
+
+  const completeFirstRegistrationStep = (stepValues: FirstRegistrationStepValues): void => {
+    setRegistrationStepIndex(RegistrationSteps.SECOND);
+
+    registrationValues.email = stepValues.email;
+    registrationValues.username = stepValues.username;
+
+    console.log(registrationValues);
+  };
+
   return (
     <AuthLayout title="Registration">
-      <Text style={styles.registrationPromotion}>1 step out of 2</Text>
-      <FirstRegistrationStep/>
+      <Text style={styles.registrationPromotion}>
+        {registrationStepIndex} step out of 2
+      </Text>
+      {registrationStepIndex === RegistrationSteps.FIRST && <FirstRegistrationStep onComplete={completeFirstRegistrationStep}/>}
     </AuthLayout>
   );
 };

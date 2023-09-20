@@ -42,7 +42,8 @@ function FormController<T extends FieldValues>({
   return (
     <View style={[
       styles.formController,
-      isLabelVisible && styles.formControllerOpened
+      isLabelVisible && styles.formControllerOpened,
+      invalid && styles.formControllerInvalid
     ]}>
       {isLabelVisible && (
         <Animated.Text
@@ -89,6 +90,9 @@ const styles = StyleSheet.create({
   formControllerOpened: {
     paddingTop: 6,
     paddingBottom: 12
+  },
+  formControllerInvalid: {
+    borderColor: Colors.MAIN_RED
   },
   fontControllerLabel: {
     color: Colors.GREY_BLACK40,
