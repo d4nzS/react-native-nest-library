@@ -1,45 +1,28 @@
 import { FC } from 'react';
-import { useForm } from 'react-hook-form';
+import { StyleSheet, Text } from 'react-native';
 
 import AuthLayout from '../AuthLayout';
-import FormController from '../../UI/FormController';
-import { EMAIL_PATTERN, USERNAME_PATTERN } from './constants';
-import Button from '../../UI/Button';
+import Fonts from '../../../constants/fonts';
+import Colors from '../../../constants/colors';
+import FirstRegistrationStep from './FirstRegistrationStep';
 
 const Registration: FC = () => {
-  const { control, handleSubmit } = useForm({
-    mode: 'onChange'
-  });
-
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
-
   return (
     <AuthLayout title="Registration">
-      <FormController
-        name="username"
-        control={control}
-        label="Come up with a username"
-        rules={{
-          required: true,
-          pattern: USERNAME_PATTERN
-        }}
-        errorMessage="Use Latin alphabet and numbers"
-      />
-      <FormController
-        name="email"
-        label="Email"
-        control={control}
-        rules={{
-          required: true,
-          pattern: EMAIL_PATTERN
-        }}
-        errorMessage="Please enter a valid email"
-      />
-      <Button>Next step</Button>
+      <Text style={styles.registrationPromotion}>1 step out of 2</Text>
+      <FirstRegistrationStep/>
     </AuthLayout>
   );
 };
+
+const styles = StyleSheet.create({
+  registrationPromotion: {
+    color: Colors.MAIN_DARK,
+    fontFamily: Fonts.MONTSERRAT_SEMI_BOLD,
+    fontSize: 14,
+    marginTop: 8,
+    marginBottom: 24
+  }
+});
 
 export default Registration;

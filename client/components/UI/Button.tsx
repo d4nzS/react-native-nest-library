@@ -7,14 +7,16 @@ import Colors, { ORANGE_LINEAR_GRADIENT_PROPS } from '../../constants/colors';
 
 interface ButtonProps extends PropsWithChildren {
   disabled?: boolean;
+  onPress: () => void;
 }
 
 const Button: FC<ButtonProps> = ({
                                    disabled = false,
+                                   onPress,
                                    children
                                  }) => {
   const pressHandler = (): void => {
-    console.log('Pressed');
+    onPress();
   };
 
   return (

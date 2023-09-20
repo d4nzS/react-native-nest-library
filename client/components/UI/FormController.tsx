@@ -1,26 +1,23 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
-import { Control, useController } from 'react-hook-form';
+import { FieldValues, useController, UseControllerProps } from 'react-hook-form';
 import Animated, { FadeIn, FadeInDown, FadeOut, FadeOutDown } from 'react-native-reanimated';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
-interface FormControllerProps {
-  name: string;
+interface FormControllerProps<T extends FieldValues> extends UseControllerProps<T> {
   label: string;
-  control: Control;
-  rules?: Object;
-  errorMessage?: string;
+  errorMessage: string;
 }
 
-const FormController: FC<FormControllerProps> = ({
-                                                   name,
-                                                   label,
-                                                   control,
-                                                   rules,
-                                                   errorMessage
-                                                 }) => {
+function FormController<T extends FieldValues>({
+                                                 name,
+                                                 control,
+                                                 rules,
+                                                 label,
+                                                 errorMessage
+                                               }: FormControllerProps<T>) {
   const {
     field: { value, onChange },
     fieldState: { invalid }
@@ -87,7 +84,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.GREY_BLACK20,
     borderTopRightRadius: 8,
     borderTopLeftRadius: 8,
-    marginVertical: 24
+    marginBottom: 48
   },
   formControllerOpened: {
     paddingTop: 6,
