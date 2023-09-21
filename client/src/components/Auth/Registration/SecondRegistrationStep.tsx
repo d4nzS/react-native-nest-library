@@ -27,7 +27,7 @@ const SecondRegistrationStep: FC<SecondRegistrationStepProps> = ({ onComplete })
 
   return (
     <>
-      <FormController<SecondRegistrationStepValues>
+      <FormController
         secureTextEntry
         label="Password"
         errorMessage="Password must be at least 8 characters"
@@ -38,7 +38,7 @@ const SecondRegistrationStep: FC<SecondRegistrationStepProps> = ({ onComplete })
           minLength: 8
         }}
       />
-      <FormController<SecondRegistrationStepValues>
+      <FormController
         secureTextEntry
         label="Confirm password"
         errorMessage="Passwords must match"

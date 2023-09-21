@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { StyleProp, StyleSheet, TextInput, View, ViewStyle } from 'react-native';
 import { FieldValues, useController, UseControllerProps } from 'react-hook-form';
 import Animated, { FadeIn, FadeInDown, FadeOut, FadeOutDown } from 'react-native-reanimated';
 
@@ -9,16 +9,18 @@ import Fonts from '../../constants/fonts';
 interface FormControllerProps<T extends FieldValues> extends UseControllerProps<T> {
   secureTextEntry?: boolean;
   label: string;
-  errorMessage: string;
+  errorMessage?: string;
+  style?: StyleProp<ViewStyle>;
 }
 
 function FormController<T extends FieldValues>({
                                                  secureTextEntry,
                                                  name,
+                                                 label,
+                                                 errorMessage,
                                                  control,
                                                  rules,
-                                                 label,
-                                                 errorMessage
+                                                 style
                                                }: FormControllerProps<T>): JSX.Element {
   const {
     field: { value, onChange },
@@ -45,7 +47,8 @@ function FormController<T extends FieldValues>({
     <View style={[
       styles.formController,
       isLabelVisible && styles.formControllerOpened,
-      invalid && styles.formControllerInvalid
+      invalid && styles.formControllerInvalid,
+      style
     ]}>
       {isLabelVisible && (
         <Animated.Text
