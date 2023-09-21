@@ -1,20 +1,9 @@
 import { FC } from 'react';
-import { StyleSheet, View } from 'react-native';
 
-import RegistrationScreen from './screens/RegistrationScreen';
+import RegistrationScreen from './src/screens/RegistrationScreen';
 
 const App: FC = () => {
-  return (
-    <View style={styles.app}>
-      <RegistrationScreen/>
-    </View>
-  );
+  return <RegistrationScreen/>;
 };
-
-const styles = StyleSheet.create({
-  app: {
-    flex: 1
-  }
-});
 
 export default App;

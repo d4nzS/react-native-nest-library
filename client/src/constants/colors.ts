@@ -1,3 +1,5 @@
+import { LinearGradientProps } from 'react-native-linear-gradient';
+
 enum Colors {
   MAIN_WHITE = '#FFFFFF',
   GREY_BLACK5 = '#F9F9FA',
@@ -8,7 +10,7 @@ enum Colors {
   MAIN_RED = '#F42C4F'
 }
 
-export const ORANGE_LINEAR_GRADIENT_PROPS = {
+export const ORANGE_LINEAR_GRADIENT_PROPS: LinearGradientProps = {
   colors: ['#F9D423', '#F83600'],
   start: { x: -1.9776, y: 0 },
   end: { x: 1.5351, y: 0 }

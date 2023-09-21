@@ -4,28 +4,28 @@ import { StyleSheet, Text, View } from 'react-native';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
-interface AuthModalProps extends PropsWithChildren {
+interface AuthContentProps extends PropsWithChildren {
   title: string;
 }
 
-const AuthModal: FC<AuthModalProps> = ({ title, children }) => {
+const AuthContent: FC<AuthContentProps> = ({ title, children }) => {
   return (
-    <View style={styles.authModal}>
-      <Text style={styles.authModalTitle}>{title}</Text>
+    <View style={styles.AuthContent}>
+      <Text style={styles.AuthContentTitle}>{title}</Text>
       {children}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  authModal: {
+  AuthContent: {
     backgroundColor: Colors.MAIN_WHITE,
     paddingVertical: 24,
     paddingHorizontal: 16,
     borderRadius: 16,
     marginTop: 12
   },
-  authModalTitle: {
+  AuthContentTitle: {
     color: Colors.MAIN_DARK,
     fontFamily: Fonts.MONTSERRAT_BOLD,
     fontSize: 24,
@@ -33,4 +33,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default AuthModal;
+export default AuthContent;

@@ -10,7 +10,7 @@ export interface SecondRegistrationStepValues {
 }
 
 interface SecondRegistrationStepProps {
-  onComplete: (stepValues: any) => void;
+  onComplete: (stepValues: SecondRegistrationStepValues) => void;
 }
 
 const SecondRegistrationStep: FC<SecondRegistrationStepProps> = ({ onComplete }) => {

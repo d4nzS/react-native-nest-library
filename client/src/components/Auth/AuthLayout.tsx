@@ -4,7 +4,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import Colors, { ORANGE_LINEAR_GRADIENT_PROPS } from '../../constants/colors';
 import Fonts from '../../constants/fonts';
-import AuthModal from './AuthModal';
+import AuthContent from './AuthContent';
 
 interface AuthLayoutProps extends PropsWithChildren {
   title: string;
@@ -17,7 +17,7 @@ const AuthLayout: FC<AuthLayoutProps> = ({ title, children }) => {
       style={styles.authLayout}
     >
       <Text style={styles.authLayoutTitle}>Cleverland</Text>
-      <AuthModal title={title}>{children}</AuthModal>
+      <AuthContent title={title}>{children}</AuthContent>
     </LinearGradient>
   );
 };
