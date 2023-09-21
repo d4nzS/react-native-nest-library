@@ -7,6 +7,7 @@ import Colors from '../../../constants/colors';
 import FirstRegistrationStep, { FirstRegistrationStepValues } from './FirstRegistrationStep';
 import { RegistrationStep } from './constants';
 import SecondRegistrationStep, { SecondRegistrationStepValues } from './SecondRegistrationStep';
+import Screens from '../../../constants/screens';
 
 interface RegistrationValues extends FirstRegistrationStepValues, SecondRegistrationStepValues {
 }
@@ -34,7 +35,7 @@ const Registration: FC = () => {
   };
 
   return (
-    <AuthLayout title="Registration">
+    <AuthLayout title={Screens.REGISTRATION}>
       <Text style={styles.registrationPromotion}>
         {registrationStep} step out of 2
       </Text>

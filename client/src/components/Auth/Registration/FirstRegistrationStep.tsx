@@ -27,7 +27,7 @@ const FirstRegistrationStep: FC<FirstRegistrationStepProps> = ({ onComplete }) =
 
   return (
     <>
-      <FormController<FirstRegistrationStepValues>
+      <FormController
         label="Come up with a username"
         errorMessage="Use Latin alphabet and numbers"
         name="username"
@@ -37,7 +37,7 @@ const FirstRegistrationStep: FC<FirstRegistrationStepProps> = ({ onComplete }) =
           pattern: USERNAME_PATTERN
         }}
       />
-      <FormController<FirstRegistrationStepValues>
+      <FormController
         label="Email"
         errorMessage="Please enter a valid email"
         name="email"
