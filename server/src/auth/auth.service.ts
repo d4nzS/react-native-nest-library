@@ -9,6 +9,5 @@ export class AuthService {
   }
 
   async registration(createUserDto: CreateUserDto) {
-
   }
 }

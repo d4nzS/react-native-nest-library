@@ -7,4 +7,12 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
 
   }
+
+  async getUserByEmail(email: string) {
+
+  }
+
+  async getUserByUsername(username: string) {
+
+  }
 }
