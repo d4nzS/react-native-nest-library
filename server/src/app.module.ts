@@ -11,7 +11,7 @@ import { UsersModule } from './users/users.module';
       envFilePath: `.${process.env.NODE_ENV}.env`
     }),
     MongooseModule.forRoot(
-      `mongodb+srv://${process.env.MONGO_USERNMA}:${process.env.MONGO_PASSWORD}@cluster0.ct19jhx.mongodb.net/`
+      `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.2oyeaqc.mongodb.net/`
     ),
     AuthModule,
     UsersModule
