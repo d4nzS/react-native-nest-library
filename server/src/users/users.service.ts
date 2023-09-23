@@ -15,7 +15,7 @@ export class UsersService {
 
     return createdUser.save();
   }
-  async getUser(prop: string, value: string): Promise<User | null> {
+  async getUser(prop: keyof User, value: string): Promise<User | null> {
     return this.userModel.findOne({ [prop]: value });
   }
 }

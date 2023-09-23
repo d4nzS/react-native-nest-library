@@ -1,11 +1,12 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { hash } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 
 import { CreateUserDto } from '../users/dtos/create-user.dto';
 import { UsersService } from '../users/users.service';
 import { User } from '../users/users.model';
 import { Token } from './interfaces/token.interface';
+import { UserDto } from '../users/dtos/user.dto';
 
 @Injectable()
 export class AuthService {
@@ -42,9 +43,29 @@ export class AuthService {
     return this.generateToken(user);
   }
 
+  async login(userDto: UserDto): Promise<Token> {
+    return this.generateToken(await this.validateUser(userDto));
+  }
+
   private async generateToken(user: User): Promise<Token> {
     const payload = { username: user.username, email: user.email };
 
     return { token: await this.jwtService.signAsync(payload) };
+  }
+
+  private async validateUser({ username, password }: UserDto): Promise<User> {
+    const user = await this.usersService.getUser('username', username);
+
+    if (!user) {
+      throw new UnauthorizedException('The user with this username does not exist');
+    }
+
+    const arePasswordsEqual = await compare(password, user.password);
+
+    if (!arePasswordsEqual) {
+      throw new UnauthorizedException('The passwords are not similar');
+    }
+
+    return user;
   }
 }
