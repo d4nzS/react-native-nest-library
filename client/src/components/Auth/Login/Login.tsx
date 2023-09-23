@@ -6,11 +6,7 @@ import AuthLayout from '../AuthLayout';
 import Screens from '../../../constants/screens';
 import FormController from '../../UI/FormController';
 import Button from '../../UI/Button';
-
-interface LoginValues {
-  username: string;
-  password: string;
-}
+import LoginValues from '../../../interfaces/login-values';
 
 const Login: FC = () => {
   const { control, handleSubmit } = useForm<LoginValues>();

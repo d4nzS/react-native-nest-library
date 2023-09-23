@@ -3,11 +3,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import FormController from '../../UI/FormController';
 import Button from '../../UI/Button';
+import RegistrationValues from '../../../interfaces/registration-values';
 
-export interface SecondRegistrationStepValues {
-  password: string;
-  confirmPassword: string;
-}
+export type SecondRegistrationStepValues = Pick<RegistrationValues, 'password' | 'confirmPassword'>;
 
 interface SecondRegistrationStepProps {
   onComplete: (stepValues: SecondRegistrationStepValues) => void;

@@ -8,9 +8,7 @@ import FirstRegistrationStep, { FirstRegistrationStepValues } from './FirstRegis
 import { RegistrationStep } from './constants';
 import SecondRegistrationStep, { SecondRegistrationStepValues } from './SecondRegistrationStep';
 import Screens from '../../../constants/screens';
-
-interface RegistrationValues extends FirstRegistrationStepValues, SecondRegistrationStepValues {
-}
+import RegistrationValues from '../../../interfaces/registration-values';
 
 const Registration: FC = () => {
   const [registrationStep, setRegistrationStep] = useState<RegistrationStep>(RegistrationStep.FIRST);

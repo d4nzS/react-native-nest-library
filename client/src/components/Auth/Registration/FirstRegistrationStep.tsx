@@ -4,11 +4,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import FormController from '../../UI/FormController';
 import { EMAIL_PATTERN, USERNAME_PATTERN } from './constants';
 import Button from '../../UI/Button';
+import RegistrationValues from '../../../interfaces/registration-values';
 
-export interface FirstRegistrationStepValues {
-  username: string;
-  email: string;
-}
+export type FirstRegistrationStepValues = Pick<RegistrationValues, 'username' | 'email'>;
 
 interface FirstRegistrationStepProps {
   onComplete: (stepValues: FirstRegistrationStepValues) => void;
