@@ -15,7 +15,6 @@ export class UsersService {
 
     return createdUser.save();
   }
-
   async getUser(prop: string, value: string) {
     return this.userModel.findOne({ [prop]: value });
   }
