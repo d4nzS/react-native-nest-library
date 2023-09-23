@@ -10,6 +10,6 @@ export class AuthController {
 
   @Post('registration')
   registration(@Body() createUserDto: CreateUserDto) {
-    return createUserDto;
+    return this.authService.registration(createUserDto);
   }
 }
