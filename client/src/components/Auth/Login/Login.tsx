@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import AuthLayout from '../AuthLayout';
@@ -7,6 +7,8 @@ import Screens from '../../../constants/screens';
 import FormController from '../../UI/FormController';
 import Button from '../../UI/Button';
 import LoginValues from '../../../interfaces/login-values';
+import Colors from '../../../constants/colors';
+import Fonts from '../../../constants/fonts';
 
 const Login: FC = () => {
   const { control, handleSubmit } = useForm<LoginValues>();
@@ -15,14 +17,14 @@ const Login: FC = () => {
     console.log(data);
   };
 
-  const errorMessage = 'The field can not be empty';
+  const controllersErrorMessage = 'The field can not be empty';
 
   return (
     <AuthLayout title={Screens.LOGIN}>
       <FormController
         label="Username"
         name="username"
-        errorMessage={errorMessage}
+        errorMessage={controllersErrorMessage}
         control={control}
         rules={{ required: true }}
         style={styles.loginFormControllerUsername}
@@ -30,10 +32,15 @@ const Login: FC = () => {
       <FormController
         label="Password"
         name="password"
-        errorMessage={errorMessage}
+        errorMessage={controllersErrorMessage}
         control={control}
         rules={{ required: true }}
       />
+      {(
+        <Text style={styles.loginHttpErrorMessage}>
+          Incorrect username or password!
+        </Text>
+      )}
       <Button onPress={handleSubmit(onSubmit)}>
         Login
       </Button>
@@ -44,6 +51,15 @@ const Login: FC = () => {
 const styles = StyleSheet.create({
   loginFormControllerUsername: {
     marginTop: 24
+  },
+  loginHttpErrorMessage: {
+    color: Colors.MAIN_RED,
+    fontFamily: Fonts.MONTSERRAT_MEDIUM,
+    fontSize: 14,
+    lineHeight: 16,
+    letterSpacing: 0.2,
+    marginBottom: 12,
+    marginLeft: 12
   }
 });
 
