@@ -1,5 +1,6 @@
 import { FC, useRef, useState } from 'react';
 import { Alert, StyleSheet, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import AuthLayout from '../AuthLayout';
 import Fonts from '../../../constants/fonts';
@@ -9,7 +10,6 @@ import { RegistrationStep } from './constants';
 import SecondRegistrationStep, { SecondRegistrationStepValues } from './SecondRegistrationStep';
 import Screens from '../../../constants/screens';
 import RegistrationValues from '../../../interfaces/registration-values';
-import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '../../../interfaces/navigation';
 
 const Registration: FC = () => {
@@ -28,15 +28,35 @@ const Registration: FC = () => {
     registrationValues.current.confirmPassword = stepValues.confirmPassword;
 
     console.log(registrationValues.current);
-    createSuccessAlert();
+    createBadRequestErrorAlert();
   };
 
   const createSuccessAlert = (): void => {
     Alert.alert(
-      'Registration successful',
+      'Registration Successful',
       'Registration was successful. Please log in to your account using your username and password.',
       [
         { text: 'Login', onPress: () => navigation.navigate(Screens.LOGIN) }
+      ]
+    );
+  };
+
+  const createBadRequestErrorAlert = (): void => {
+    Alert.alert(
+      'Data Not Saved',
+      'This username or email is already registered in the system. Please try registering with a different username or email.',
+      [
+        { text: 'Back to Registration', onPress: () => navigation.replace(Screens.REGISTRATION) }
+      ]
+    );
+  };
+
+  const createUnknownErrorAlert = (): void => {
+    Alert.alert(
+      'Data Not Saved',
+      'Something went wrong, and your registration did not complete. Please try again.',
+      [
+        { text: 'Retry', onPress: () => navigation.navigate(Screens.REGISTRATION) }
       ]
     );
   };
