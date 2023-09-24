@@ -1,6 +1,5 @@
 import { FC, useRef, useState } from 'react';
 import { Alert, StyleSheet, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
 import AuthLayout from '../AuthLayout';
 import Fonts from '../../../constants/fonts';
@@ -10,10 +9,10 @@ import { RegistrationStep } from './constants';
 import SecondRegistrationStep, { SecondRegistrationStepValues } from './SecondRegistrationStep';
 import Screens from '../../../constants/screens';
 import RegistrationValues from '../../../interfaces/registration-values';
-import { StackNavigationProp } from '../../../interfaces/navigation';
+import useAppNavigation from '../../../hooks/use-app-navigation';
 
 const Registration: FC = () => {
-  const navigation = useNavigation<StackNavigationProp>();
+  const navigation = useAppNavigation();
   const [registrationStep, setRegistrationStep] = useState<RegistrationStep>(RegistrationStep.FIRST);
   const registrationValues = useRef<Partial<RegistrationValues>>({});
 
@@ -56,7 +55,7 @@ const Registration: FC = () => {
       'Data Not Saved',
       'Something went wrong, and your registration did not complete. Please try again.',
       [
-        { text: 'Retry', onPress: () => navigation.navigate(Screens.REGISTRATION) }
+        { text: 'Retry', onPress: () => navigation.replace(Screens.REGISTRATION) }
       ]
     );
   };
