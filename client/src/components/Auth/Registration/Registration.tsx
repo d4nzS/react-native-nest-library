@@ -1,5 +1,5 @@
 import { FC, useRef, useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { Alert, StyleSheet, Text } from 'react-native';
 
 import AuthLayout from '../AuthLayout';
 import Fonts from '../../../constants/fonts';
@@ -9,8 +9,10 @@ import { RegistrationStep } from './constants';
 import SecondRegistrationStep, { SecondRegistrationStepValues } from './SecondRegistrationStep';
 import Screens from '../../../constants/screens';
 import RegistrationValues from '../../../interfaces/registration-values';
+import useAppNavigation from '../../../hooks/use-app-navigation';
 
 const Registration: FC = () => {
+  const navigation = useAppNavigation();
   const [registrationStep, setRegistrationStep] = useState<RegistrationStep>(RegistrationStep.FIRST);
   const registrationValues = useRef<Partial<RegistrationValues>>({});
 
@@ -25,6 +27,37 @@ const Registration: FC = () => {
     registrationValues.current.confirmPassword = stepValues.confirmPassword;
 
     console.log(registrationValues.current);
+    createBadRequestErrorAlert();
+  };
+
+  const createSuccessAlert = (): void => {
+    Alert.alert(
+      'Registration Successful',
+      'Registration was successful. Please log in to your account using your username and password.',
+      [
+        { text: 'Login', onPress: () => navigation.navigate(Screens.LOGIN) }
+      ]
+    );
+  };
+
+  const createBadRequestErrorAlert = (): void => {
+    Alert.alert(
+      'Data Not Saved',
+      'This username or email is already registered in the system. Please try registering with a different username or email.',
+      [
+        { text: 'Back to Registration', onPress: () => navigation.replace(Screens.REGISTRATION) }
+      ]
+    );
+  };
+
+  const createUnknownErrorAlert = (): void => {
+    Alert.alert(
+      'Data Not Saved',
+      'Something went wrong, and your registration did not complete. Please try again.',
+      [
+        { text: 'Retry', onPress: () => navigation.replace(Screens.REGISTRATION) }
+      ]
+    );
   };
 
   const registrationStepsElements = {
