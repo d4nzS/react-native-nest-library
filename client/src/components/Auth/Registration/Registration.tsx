@@ -1,5 +1,5 @@
 import { FC, useRef, useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { Alert, StyleSheet, Text } from 'react-native';
 
 import AuthLayout from '../AuthLayout';
 import Fonts from '../../../constants/fonts';
@@ -9,8 +9,11 @@ import { RegistrationStep } from './constants';
 import SecondRegistrationStep, { SecondRegistrationStepValues } from './SecondRegistrationStep';
 import Screens from '../../../constants/screens';
 import RegistrationValues from '../../../interfaces/registration-values';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '../../../interfaces/navigation';
 
 const Registration: FC = () => {
+  const navigation = useNavigation<StackNavigationProp>();
   const [registrationStep, setRegistrationStep] = useState<RegistrationStep>(RegistrationStep.FIRST);
   const registrationValues = useRef<Partial<RegistrationValues>>({});
 
@@ -25,6 +28,17 @@ const Registration: FC = () => {
     registrationValues.current.confirmPassword = stepValues.confirmPassword;
 
     console.log(registrationValues.current);
+    createSuccessAlert();
+  };
+
+  const createSuccessAlert = (): void => {
+    Alert.alert(
+      'Registration successful',
+      'Registration was successful. Please log in to your account using your username and password.',
+      [
+        { text: 'Login', onPress: () => navigation.navigate(Screens.LOGIN) }
+      ]
+    );
   };
 
   const registrationStepsElements = {

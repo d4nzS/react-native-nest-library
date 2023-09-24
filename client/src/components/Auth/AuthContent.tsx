@@ -12,7 +12,6 @@ interface AuthContentProps extends PropsWithChildren {
   title: string;
 }
 
-
 const AuthContent: FC<AuthContentProps> = ({ title, children }) => {
   const navigation = useNavigation<StackNavigationProp>();
   const isLogin = useRoute().name === Screens.LOGIN;

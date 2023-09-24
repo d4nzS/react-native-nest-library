@@ -51,7 +51,7 @@ const SecondRegistrationStep: FC<SecondRegistrationStepProps> = ({ onComplete })
         disabled={!isValid}
         onPress={handleSubmit(onSubmit)}
       >
-        Next step
+        Complete Registration
       </Button>
     </>
   );
