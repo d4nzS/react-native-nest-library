@@ -15,7 +15,7 @@ interface AuthContentProps extends PropsWithChildren {
 
 const AuthContent: FC<AuthContentProps> = ({ title, children }) => {
   const navigation = useNavigation<StackNavigationProp>();
-  const isLogin = useRoute().name === 'Login';
+  const isLogin = useRoute().name === Screens.LOGIN;
 
   const linkHandler = (): void => {
     navigation.navigate(isLogin ? Screens.REGISTRATION : Screens.LOGIN);
