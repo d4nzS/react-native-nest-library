@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 
-import { StackNavigationProp } from '../interfaces/navigation';
+import { StackNavigationProp } from '../../App';
 
 const useAppNavigation = useNavigation<StackNavigationProp>;
 
