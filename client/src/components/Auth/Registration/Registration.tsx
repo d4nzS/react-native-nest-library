@@ -1,5 +1,6 @@
 import { FC, useRef, useState } from 'react';
 import { Alert, StyleSheet, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import AuthLayout from '../AuthLayout';
 import Fonts from '../../../constants/fonts';
@@ -9,10 +10,10 @@ import { RegistrationStep } from './constants';
 import SecondRegistrationStep, { SecondRegistrationStepValues } from './SecondRegistrationStep';
 import Screens from '../../../constants/screens';
 import RegistrationValues from '../../../interfaces/registration-values';
-import useAppNavigation from '../../../hooks/use-app-navigation';
+import { AuthStackNavigationProp } from '../../../screens/AuthScreen';
 
 const Registration: FC = () => {
-  const navigation = useAppNavigation();
+  const navigation = useNavigation<AuthStackNavigationProp>();
   const [registrationStep, setRegistrationStep] = useState<RegistrationStep>(RegistrationStep.FIRST);
   const registrationValues = useRef<Partial<RegistrationValues>>({});
 

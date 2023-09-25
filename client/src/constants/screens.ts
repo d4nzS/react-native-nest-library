@@ -1,6 +1,7 @@
 enum Screens {
-  REGISTRATION = 'Registration',
-  LOGIN = 'Login'
+  AUTH = 'Auth',
+    REGISTRATION = 'Registration',
+    LOGIN = 'Login'
 }
 
 export default Screens;
