@@ -1,19 +1,19 @@
 import { FC, PropsWithChildren } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import ArrowIcon from '../../assets/icons/arrow-icon.svg';
 import Screens from '../../constants/screens';
-import useAppNavigation from '../../hooks/use-app-navigation';
+import { AuthStackNavigationProp } from '../../screens/AuthScreen';
 
 interface AuthContentProps extends PropsWithChildren {
   title: string;
 }
 
 const AuthContent: FC<AuthContentProps> = ({ title, children }) => {
-  const navigation = useAppNavigation();
+  const navigation = useNavigation<AuthStackNavigationProp>();
   const isLogin = useRoute().name === Screens.LOGIN;
 
   const linkHandler = (): void => {

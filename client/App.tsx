@@ -3,33 +3,26 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import Screens from './src/constants/screens';
-import RegistrationScreen from './src/screens/RegistrationScreen';
-import LoginScreen from './src/screens/LoginScreen';
+import AuthScreen from './src/screens/AuthScreen';
 
 type RootStackParamList = {
-  [Screens.LOGIN]: undefined
-  [Screens.REGISTRATION]: undefined,
+  [Screens.AUTH]: undefined;
 };
 
-export type StackNavigationProp = NativeStackNavigationProp<RootStackParamList>;
+export type RootStackNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const App: FC = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name={Screens.LOGIN}
-          component={LoginScreen}
+      <RootStack.Navigator>
+        <RootStack.Screen
+          name={Screens.AUTH}
+          component={AuthScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name={Screens.REGISTRATION}
-          component={RegistrationScreen}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
+      </RootStack.Navigator>
     </NavigationContainer>
   );
 };
