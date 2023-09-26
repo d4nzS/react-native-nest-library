@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
-import { CreateUserDto } from '../users/dtos/create-user.dto';
+import { CreateUserDto } from '../user/dtos/create-user.dto';
 import { TokensDto } from '../token/dtos/tokens.dto';
-import { LoginUserDto } from '../users/dtos/login-user.dto';
+import { LoginUserDto } from '../user/dtos/login-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -21,12 +21,12 @@ export class AuthController {
   }
 
   @Post('logout')
-  logout(@Body() { refreshToken }: { refreshToken: string }): Promise<{ refreshToken: string }> {
+  logout(@Body('refreshToken') refreshToken: string): Promise<{ refreshToken: string }> {
     return this.authService.logout(refreshToken);
   }
 
-  @Get('refresh/:refreshToken')
-  refreshToken(@Param('refreshToken') refreshToken: string): Promise<TokensDto> {
+  @Post('refresh')
+  refreshToken(@Body('refreshToken') refreshToken: string): Promise<TokensDto> {
     return this.authService.refresh(refreshToken);
   }
 }

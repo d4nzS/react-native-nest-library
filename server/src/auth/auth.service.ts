@@ -1,11 +1,11 @@
 import { BadRequestException, Get, Injectable, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { compare, hash } from 'bcrypt';
 
-import { CreateUserDto } from '../users/dtos/create-user.dto';
-import { UserService } from '../users/user.service';
-import { UserDocument } from '../users/user.model';
+import { CreateUserDto } from '../user/dtos/create-user.dto';
+import { UserService } from '../user/user.service';
+import { UserDocument } from '../user/user.model';
 import { TokensDto } from '../token/dtos/tokens.dto';
-import { LoginUserDto } from '../users/dtos/login-user.dto';
+import { LoginUserDto } from '../user/dtos/login-user.dto';
 import { TokenService } from '../token/token.service';
 import { AuthGuard } from './auth.guard';
 

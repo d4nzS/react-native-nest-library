@@ -5,7 +5,7 @@ import { Model } from 'mongoose';
 
 import { TokensDto } from './dtos/tokens.dto';
 import { Token, TokenDocument } from './token.model';
-import { TokenUserDto } from '../users/dtos/token-user.dto';
+import { TokenUserDto } from '../user/dtos/token-user.dto';
 
 @Injectable()
 export class TokenService {
