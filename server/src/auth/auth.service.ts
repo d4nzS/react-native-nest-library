@@ -1,20 +1,21 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { BadRequestException, Get, Injectable, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { compare, hash } from 'bcrypt';
 
 import { CreateUserDto } from '../users/dtos/create-user.dto';
-import { UsersService } from '../users/users.service';
-import { User } from '../users/users.model';
-import { Token } from './interfaces/token.interface';
-import { UserDto } from '../users/dtos/user.dto';
+import { UserService } from '../users/user.service';
+import { UserDocument } from '../users/user.model';
+import { TokensDto } from '../token/dtos/tokens.dto';
+import { LoginUserDto } from '../users/dtos/login-user.dto';
+import { TokenService } from '../token/token.service';
+import { AuthGuard } from './auth.guard';
 
 @Injectable()
 export class AuthService {
-  constructor(private jwtService: JwtService,
-              private usersService: UsersService) {
+  constructor(private userService: UserService,
+              private tokenService: TokenService) {
   }
 
-  async registration(createUserDto: CreateUserDto): Promise<Token> {
+  async registration(createUserDto: CreateUserDto): Promise<TokensDto> {
     const {
       username,
       email,
@@ -22,8 +23,8 @@ export class AuthService {
       confirmPassword
     } = createUserDto;
 
-    const candidate = await this.usersService.getUser('username', username)
-      ?? await this.usersService.getUser('email', email);
+    const candidate = await this.userService.getUser('username', username)
+      ?? await this.userService.getUser('email', email);
 
     if (candidate) {
       throw new BadRequestException('The user with this username or email already exists');
@@ -35,26 +36,68 @@ export class AuthService {
 
     const hashedPassword = await hash(password, 5);
 
-    const user = await this.usersService.createUser({
+    const user = await this.userService.createUser({
       ...createUserDto,
       password: hashedPassword
     });
+    const tokens = await this.tokenService.generateTokens({
+      id: user.id,
+      username: user.username,
+      email: user.email
+    });
 
-    return this.generateToken(user);
+    await this.tokenService.saveRefreshToken(user.id, tokens.refreshToken);
+
+    return tokens;
   }
 
-  async login(userDto: UserDto): Promise<Token> {
-    return this.generateToken(await this.validateUser(userDto));
+  async login(loginUserDto: LoginUserDto): Promise<TokensDto> {
+    const user = await this.validateUser(loginUserDto);
+    const tokens = await this.tokenService.generateTokens({
+      id: user.id,
+      username: user.username,
+      email: user.email
+    })
+
+    await this.tokenService.saveRefreshToken(user.id, tokens.refreshToken);
+
+    return tokens;
   }
 
-  private async generateToken(user: User): Promise<Token> {
-    const payload = { username: user.username, email: user.email };
+  async logout(refreshToken: string) {
+    await this.tokenService.removeRefreshToken(refreshToken);
 
-    return { token: await this.jwtService.signAsync(payload) };
+    return { refreshToken };
   }
 
-  private async validateUser({ username, password }: UserDto): Promise<User> {
-    const user = await this.usersService.getUser('username', username);
+  async refresh(refreshToken: string): Promise<TokensDto> {
+    const userData = await this.tokenService.validateRefreshToken(refreshToken);
+
+    if (!userData) {
+      throw new UnauthorizedException();
+    }
+
+    const tokenFromDb = await this.tokenService.findRefreshToken(refreshToken);
+
+    if (!tokenFromDb) {
+      throw new UnauthorizedException();
+    }
+
+    const user = await this.userService.getUser('_id', userData.id);
+
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    return await this.tokenService.generateTokens({
+      id: user.id,
+      username: user.username,
+      email: user.email
+    });
+  };
+
+  private async validateUser({ username, password }: LoginUserDto): Promise<UserDocument> {
+    const user = await this.userService.getUser('username', username);
 
     if (!user) {
       throw new UnauthorizedException('The user with this username does not exist');
@@ -67,5 +110,11 @@ export class AuthService {
     }
 
     return user;
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('test')
+  test() {
+    console.log('good')
   }
 }
