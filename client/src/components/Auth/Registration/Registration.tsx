@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Alert, StyleSheet, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -11,11 +11,29 @@ import SecondRegistrationStep, { SecondRegistrationStepValues } from './SecondRe
 import Screens from '../../../constants/screens';
 import RegistrationValues from '../../../interfaces/registration-values';
 import { AuthStackNavigationProp } from '../../../screens/AuthScreen';
+import useAppDispatch from '../../../hooks/use-app-dispatch';
+import { registrationThunk } from '../../../store/auth/auth-thunks';
+import useAppSelector from '../../../hooks/use-app-selector';
+import authSelectors from '../../../store/auth/auth-selectors';
+import Errors from '../../../constants/errors';
+import { authActions } from '../../../store/auth/auth-slice';
 
 const Registration: FC = () => {
   const navigation = useNavigation<AuthStackNavigationProp>();
+  const dispatch = useAppDispatch();
+  const errorCode = useAppSelector(authSelectors.errorCodeSelector);
   const [registrationStep, setRegistrationStep] = useState<RegistrationStep>(RegistrationStep.FIRST);
   const registrationValues = useRef<Partial<RegistrationValues>>({});
+
+  useEffect(() => {
+    if (errorCode === Errors.BAD_REQUEST) {
+      createBadRequestErrorAlert()
+    }
+
+    if (errorCode === Errors.UNKNOWN) {
+      createUnknownErrorAlert();
+    }
+  }, [errorCode]);
 
   const completeFirstRegistrationStep = (stepValues: FirstRegistrationStepValues): void => {
     setRegistrationStep(RegistrationStep.SECOND);
@@ -27,8 +45,8 @@ const Registration: FC = () => {
     registrationValues.current.password = stepValues.password;
     registrationValues.current.confirmPassword = stepValues.confirmPassword;
 
-    console.log(registrationValues.current);
-    createBadRequestErrorAlert();
+    dispatch(registrationThunk(registrationValues.current as RegistrationValues));
+    // createBadRequestErrorAlert();
   };
 
   const createSuccessAlert = (): void => {
@@ -49,6 +67,8 @@ const Registration: FC = () => {
         { text: 'Back to Registration', onPress: () => navigation.replace(Screens.REGISTRATION) }
       ]
     );
+
+    dispatch(authActions.clearErrorCode());
   };
 
   const createUnknownErrorAlert = (): void => {
@@ -59,6 +79,8 @@ const Registration: FC = () => {
         { text: 'Retry', onPress: () => navigation.replace(Screens.REGISTRATION) }
       ]
     );
+
+    dispatch(authActions.clearErrorCode());
   };
 
   const registrationStepsElements = {

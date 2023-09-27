@@ -1,8 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const registration = createAsyncThunk(
+import RegistrationValues from '../../interfaces/registration-values';
+import AuthService from '../../services/auth-service';
+
+export const registrationThunk = createAsyncThunk(
   'auth/registration',
-  async () => {
-    return null;
+  async (registrationData: RegistrationValues) => {
+    const response = await AuthService.registration(registrationData);
+
+    return response.data;
   }
 );

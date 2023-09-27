@@ -1,8 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { registration } from './auth-thunks';
+
+import { registrationThunk } from './auth-thunks';
+import Errors from '../../constants/errors';
 
 interface AuthState {
   isLoading: boolean;
+  errorCode?: Errors;
 }
 
 const initialState: AuthState = {
@@ -12,13 +15,28 @@ const initialState: AuthState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    clearErrorCode(state) {
+      delete state.errorCode;
+    }
+  },
   extraReducers: builder => {
-    builder.addCase(
-      registration.fulfilled, () => {
-      }
-    )
+    builder
+      .addCase(registrationThunk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(registrationThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(registrationThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorCode = action.error.code === Errors.BAD_REQUEST
+          ? Errors.BAD_REQUEST
+          : Errors.UNKNOWN;
+      })
   }
 });
+
+export const authActions = authSlice.actions;
 
 export default authSlice;
