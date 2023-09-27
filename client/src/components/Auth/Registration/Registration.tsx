@@ -22,10 +22,15 @@ const Registration: FC = () => {
   const navigation = useNavigation<AuthStackNavigationProp>();
   const dispatch = useAppDispatch();
   const errorCode = useAppSelector(authSelectors.errorCodeSelector);
+  const isSucceed = useAppSelector(authSelectors.isSucceedSelector);
   const [registrationStep, setRegistrationStep] = useState<RegistrationStep>(RegistrationStep.FIRST);
   const registrationValues = useRef<Partial<RegistrationValues>>({});
 
   useEffect(() => {
+    if (isSucceed) {
+      createSuccessAlert();
+    }
+
     if (errorCode === Errors.BAD_REQUEST) {
       createBadRequestErrorAlert()
     }
@@ -33,7 +38,7 @@ const Registration: FC = () => {
     if (errorCode === Errors.UNKNOWN) {
       createUnknownErrorAlert();
     }
-  }, [errorCode]);
+  }, [isSucceed, errorCode]);
 
   const completeFirstRegistrationStep = (stepValues: FirstRegistrationStepValues): void => {
     setRegistrationStep(RegistrationStep.SECOND);
@@ -46,7 +51,6 @@ const Registration: FC = () => {
     registrationValues.current.confirmPassword = stepValues.confirmPassword;
 
     dispatch(registrationThunk(registrationValues.current as RegistrationValues));
-    // createBadRequestErrorAlert();
   };
 
   const createSuccessAlert = (): void => {
@@ -57,6 +61,8 @@ const Registration: FC = () => {
         { text: 'Login', onPress: () => navigation.navigate(Screens.LOGIN) }
       ]
     );
+
+    dispatch(authActions.clearIsSucceed());
   };
 
   const createBadRequestErrorAlert = (): void => {

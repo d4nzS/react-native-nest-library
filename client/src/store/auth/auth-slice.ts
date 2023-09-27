@@ -5,6 +5,7 @@ import Errors from '../../constants/errors';
 
 interface AuthState {
   isLoading: boolean;
+  isSucceed?: boolean;
   errorCode?: Errors;
 }
 
@@ -18,6 +19,9 @@ const authSlice = createSlice({
   reducers: {
     clearErrorCode(state) {
       delete state.errorCode;
+    },
+    clearIsSucceed(state) {
+      delete state.isSucceed;
     }
   },
   extraReducers: builder => {
@@ -27,6 +31,7 @@ const authSlice = createSlice({
       })
       .addCase(registrationThunk.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isSucceed = true;
       })
       .addCase(registrationThunk.rejected, (state, action) => {
         state.isLoading = false;
