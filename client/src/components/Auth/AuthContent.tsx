@@ -2,10 +2,10 @@ import { FC, PropsWithChildren } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
+import Color from '../../constants/color';
+import Font from '../../constants/font';
 import ArrowIcon from '../../assets/icons/arrow-icon.svg';
-import Screens from '../../constants/screens';
+import Screen from '../../constants/screen';
 import { AuthStackNavigationProp } from '../../screens/AuthScreen';
 
 interface AuthContentProps extends PropsWithChildren {
@@ -14,10 +14,10 @@ interface AuthContentProps extends PropsWithChildren {
 
 const AuthContent: FC<AuthContentProps> = ({ title, children }) => {
   const navigation = useNavigation<AuthStackNavigationProp>();
-  const isLogin = useRoute().name === Screens.LOGIN;
+  const isLogin = useRoute().name === Screen.LOGIN;
 
   const linkHandler = (): void => {
-    navigation.navigate(isLogin ? Screens.REGISTRATION : Screens.LOGIN);
+    navigation.navigate(isLogin ? Screen.REGISTRATION : Screen.LOGIN);
   };
 
   return (
@@ -41,15 +41,15 @@ const AuthContent: FC<AuthContentProps> = ({ title, children }) => {
 
 const styles = StyleSheet.create({
   authContent: {
-    backgroundColor: Colors.MAIN_WHITE,
+    backgroundColor: Color.MAIN_WHITE,
     paddingVertical: 24,
     paddingHorizontal: 16,
     borderRadius: 16,
     marginTop: 12
   },
   authContentTitle: {
-    color: Colors.MAIN_DARK,
-    fontFamily: Fonts.MONTSERRAT_BOLD,
+    color: Color.MAIN_DARK,
+    fontFamily: Font.MONTSERRAT_BOLD,
     fontSize: 24,
     lineHeight: 30
   },
@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
     marginTop: 16
   },
   authContentText: {
-    color: Colors.GREY_BLACK70,
-    fontFamily: Fonts.MONTSERRAT_REGULAR,
+    color: Color.GREY_BLACK70,
+    fontFamily: Font.MONTSERRAT_REGULAR,
     fontSize: 15,
     lineHeight: 20
   },
@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
     gap: 12
   },
   authContentLinkText: {
-    color: Colors.MAIN_DARK,
-    fontFamily: Fonts.MONTSERRAT_SEMI_BOLD,
+    color: Color.MAIN_DARK,
+    fontFamily: Font.MONTSERRAT_SEMI_BOLD,
     fontSize: 14,
     letterSpacing: 0.2,
     textTransform: 'uppercase'

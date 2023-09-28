@@ -1,7 +1,7 @@
-enum Screens {
+enum Screen {
   AUTH = 'Auth',
     REGISTRATION = 'Registration',
     LOGIN = 'Login'
 }
 
-export default Screens;
+export default Screen;

@@ -1,26 +1,43 @@
-import { FC } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { FC, useEffect } from 'react';
+import { Alert, StyleSheet } from 'react-native';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import AuthLayout from '../AuthLayout';
-import Screens from '../../../constants/screens';
+import Screen from '../../../constants/screen';
 import FormController from '../../UI/FormController';
 import Button from '../../UI/Button';
 import LoginValues from '../../../interfaces/login-values';
-import Colors from '../../../constants/colors';
-import Fonts from '../../../constants/fonts';
+import useAppDispatch from '../../../hooks/use-app-dispatch';
+import { loginThunk } from '../../../store/auth/auth-thunks';
+import useAppSelector from '../../../hooks/use-app-selector';
+import authSelectors from '../../../store/auth/auth-selectors';
+import { authActions } from '../../../store/auth/auth-slice';
 
 const Login: FC = () => {
+  const dispatch = useAppDispatch();
+  const error = useAppSelector(authSelectors.errorSelector);
   const { control, handleSubmit } = useForm<LoginValues>();
 
+  useEffect(() => {
+    if (error) {
+      Alert.alert(error.title, error.message, [{
+          text: 'Retry',
+          onPress: () => {
+            dispatch(authActions.clearError());
+          }
+        }]
+      );
+    }
+  }, [error]);
+
   const onSubmit: SubmitHandler<LoginValues> = data => {
-    console.log(data);
+    dispatch(loginThunk(data));
   };
 
   const controllersErrorMessage = 'The field can not be empty';
 
   return (
-    <AuthLayout title={Screens.LOGIN}>
+    <AuthLayout title={Screen.LOGIN}>
       <FormController
         label="Username"
         name="username"
@@ -30,17 +47,13 @@ const Login: FC = () => {
         style={styles.loginFormControllerUsername}
       />
       <FormController
+        secureTextEntry
         label="Password"
         name="password"
         errorMessage={controllersErrorMessage}
         control={control}
         rules={{ required: true }}
       />
-      {(
-        <Text style={styles.loginHttpErrorMessage}>
-          Incorrect username or password!
-        </Text>
-      )}
       <Button onPress={handleSubmit(onSubmit)}>
         Login
       </Button>
@@ -51,15 +64,6 @@ const Login: FC = () => {
 const styles = StyleSheet.create({
   loginFormControllerUsername: {
     marginTop: 24
-  },
-  loginHttpErrorMessage: {
-    color: Colors.MAIN_RED,
-    fontFamily: Fonts.MONTSERRAT_MEDIUM,
-    fontSize: 14,
-    lineHeight: 16,
-    letterSpacing: 0.2,
-    marginBottom: 12,
-    marginLeft: 12
   }
 });
 

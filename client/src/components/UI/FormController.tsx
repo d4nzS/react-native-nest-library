@@ -3,8 +3,8 @@ import { StyleProp, StyleSheet, TextInput, View, ViewStyle } from 'react-native'
 import { FieldValues, useController, UseControllerProps } from 'react-hook-form';
 import Animated, { FadeIn, FadeInDown, FadeOut, FadeOutDown } from 'react-native-reanimated';
 
-import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
+import Color from '../../constants/color';
+import Font from '../../constants/font';
 
 interface FormControllerProps<T extends FieldValues> extends UseControllerProps<T> {
   secureTextEntry?: boolean;
@@ -63,7 +63,7 @@ function FormController<T extends FieldValues>({
         secureTextEntry={secureTextEntry}
         value={value}
         placeholder={isPlaceholderVisible ? label : ''}
-        placeholderTextColor={Colors.MAIN_DARK}
+        placeholderTextColor={Color.MAIN_DARK}
         style={styles.formControllerInput}
         onChangeText={onChange}
         onFocus={focusTextInputHandler}
@@ -84,11 +84,11 @@ function FormController<T extends FieldValues>({
 
 const styles = StyleSheet.create({
   formController: {
-    backgroundColor: Colors.GREY_BLACK5,
+    backgroundColor: Color.GREY_BLACK5,
     paddingVertical: 19,
     paddingHorizontal: 12,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.GREY_BLACK20,
+    borderBottomColor: Color.GREY_BLACK20,
     borderTopRightRadius: 8,
     borderTopLeftRadius: 8,
     marginBottom: 48
@@ -98,23 +98,23 @@ const styles = StyleSheet.create({
     paddingBottom: 12
   },
   formControllerInvalid: {
-    borderColor: Colors.MAIN_RED
+    borderColor: Color.MAIN_RED
   },
   fontControllerLabel: {
-    color: Colors.GREY_BLACK40,
-    fontFamily: Fonts.MONTSERRAT_MEDIUM,
+    color: Color.GREY_BLACK40,
+    fontFamily: Font.MONTSERRAT_MEDIUM,
     fontSize: 12,
     lineHeight: 16,
     letterSpacing: 0.2,
     marginBottom: 4
   },
   formControllerInput: {
-    fontFamily: Fonts.MONTSERRAT_REGULAR,
+    fontFamily: Font.MONTSERRAT_REGULAR,
     letterSpacing: 0.1
   },
   formControllerHint: {
-    color: Colors.MAIN_RED,
-    fontFamily: Fonts.MONTSERRAT_MEDIUM,
+    color: Color.MAIN_RED,
+    fontFamily: Font.MONTSERRAT_MEDIUM,
     fontSize: 12,
     lineHeight: 16,
     letterSpacing: 0.2,

@@ -111,10 +111,4 @@ export class AuthService {
 
     return user;
   }
-
-  @UseGuards(AuthGuard)
-  @Get('test')
-  test() {
-    console.log('good')
-  }
 }
