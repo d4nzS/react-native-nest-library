@@ -2,8 +2,8 @@ import { FC, PropsWithChildren } from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import Fonts from '../../constants/fonts';
-import Colors, { ORANGE_LINEAR_GRADIENT_PROPS } from '../../constants/colors';
+import Font from '../../constants/font';
+import Color, { ORANGE_LINEAR_GRADIENT_PROPS } from '../../constants/color';
 
 interface ButtonProps extends PropsWithChildren {
   disabled?: boolean;
@@ -24,7 +24,7 @@ const Button: FC<ButtonProps> = ({
       <LinearGradient
         {...ORANGE_LINEAR_GRADIENT_PROPS}
         colors={disabled
-          ? [Colors.GREY_BLACK10, Colors.GREY_BLACK10]
+          ? [Color.GREY_BLACK10, Color.GREY_BLACK10]
           : ORANGE_LINEAR_GRADIENT_PROPS.colors}
         style={styles.button}
       >
@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
     borderRadius: 20
   },
   buttonText: {
-    color: Colors.MAIN_WHITE,
-    fontFamily: Fonts.MONTSERRAT_SEMI_BOLD,
+    color: Color.MAIN_WHITE,
+    fontFamily: Font.MONTSERRAT_SEMI_BOLD,
     fontSize: 12,
     letterSpacing: 0.2,
     textTransform: 'uppercase'

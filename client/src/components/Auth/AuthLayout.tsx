@@ -2,8 +2,8 @@ import { FC, PropsWithChildren } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import Colors, { ORANGE_LINEAR_GRADIENT_PROPS } from '../../constants/colors';
-import Fonts from '../../constants/fonts';
+import Color, { ORANGE_LINEAR_GRADIENT_PROPS } from '../../constants/color';
+import Font from '../../constants/font';
 import AuthContent from './AuthContent';
 import Blur from '../UI/Blur';
 import Loader from '../UI/Loader';
@@ -28,7 +28,7 @@ const AuthLayout: FC<AuthLayoutProps> = ({ title, children }) => {
       </LinearGradient>
       {isLoading && (
         <Blur>
-          <Loader size={70}/>
+          <Loader size={5}/>
         </Blur>
       )}
     </>
@@ -36,21 +36,14 @@ const AuthLayout: FC<AuthLayoutProps> = ({ title, children }) => {
 };
 
 const styles = StyleSheet.create({
-  view: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0
-  },
   authLayout: {
     flex: 1,
     justifyContent: 'center',
     padding: 16
   },
   authLayoutTitle: {
-    color: Colors.MAIN_WHITE,
-    fontFamily: Fonts.MONTSERRAT_BOLD,
+    color: Color.MAIN_WHITE,
+    fontFamily: Font.MONTSERRAT_BOLD,
     fontSize: 28,
     textAlign: 'center'
   }

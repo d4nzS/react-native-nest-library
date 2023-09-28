@@ -1,15 +1,15 @@
 import { FC } from 'react';
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import Screens from '../constants/screens';
+import Screen from '../constants/screen';
 import LoginScreen from './LoginScreen';
 import RegistrationScreen from './RegistrationScreen';
 import AuthLayout from '../components/Auth/AuthLayout';
 import AuthContent from '../components/Auth/AuthContent';
 
 type AuthStackParamList = {
-  [Screens.LOGIN]: undefined;
-  [Screens.REGISTRATION]: undefined;
+  [Screen.LOGIN]: undefined;
+  [Screen.REGISTRATION]: undefined;
 }
 
 export type AuthStackNavigationProp = NativeStackNavigationProp<AuthStackParamList>;
@@ -20,12 +20,12 @@ const AuthScreen: FC = () => {
   return (
     <AuthStack.Navigator>
       <AuthStack.Screen
-        name={Screens.LOGIN}
+        name={Screen.LOGIN}
         component={LoginScreen}
         options={{ headerShown: false }}
       />
       <AuthStack.Screen
-        name={Screens.REGISTRATION}
+        name={Screen.REGISTRATION}
         component={RegistrationScreen}
         options={{ headerShown: false }}
       />

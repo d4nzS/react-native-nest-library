@@ -4,11 +4,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { store } from './src/store/store';
-import Screens from './src/constants/screens';
+import Screen from './src/constants/screen';
 import AuthScreen from './src/screens/AuthScreen';
 
 type RootStackParamList = {
-  [Screens.AUTH]: undefined;
+  [Screen.AUTH]: undefined;
 };
 
 export type RootStackNavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -21,7 +21,7 @@ const App: FC = () => {
       <NavigationContainer>
         <RootStack.Navigator>
           <RootStack.Screen
-            name={Screens.AUTH}
+            name={Screen.AUTH}
             component={AuthScreen}
             options={{ headerShown: false }}
           />

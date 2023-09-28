@@ -1,12 +1,18 @@
 import { AxiosResponse } from 'axios';
 
 import api from '../api/api';
-import ApiUrls from '../constants/api-urls';
+import ApiUrl from '../constants/api-url';
 import RegistrationValues from '../interfaces/registration-values';
+import LoginValues from '../interfaces/login-values';
+import LoginResponse from '../interfaces/login-response';
 
 class AuthService {
-  static async registration(registrationData: RegistrationValues): Promise<AxiosResponse<void>> {
-    return api.post(ApiUrls.REGISTRATION, registrationData);
+  static async register(registrationData: RegistrationValues): Promise<AxiosResponse<void>> {
+    return api.post(ApiUrl.REGISTRATION, registrationData);
+  }
+
+  static async login(loginData: LoginValues): Promise<AxiosResponse<LoginResponse>> {
+    return api.post(ApiUrl.LOGIN, loginData);
   }
 }
 
