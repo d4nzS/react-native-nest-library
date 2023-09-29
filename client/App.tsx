@@ -23,13 +23,13 @@ const App: FC = () => {
       <NavigationContainer>
         <RootStack.Navigator>
           <RootStack.Screen
-            name={Screen.AUTH}
-            component={AuthScreen}
+            name={Screen.MAIN}
+            component={MainScreen}
             options={{ headerShown: false }}
           />
           <RootStack.Screen
-            name={Screen.MAIN}
-            component={MainScreen}
+            name={Screen.AUTH}
+            component={AuthScreen}
             options={{ headerShown: false }}
           />
         </RootStack.Navigator>
