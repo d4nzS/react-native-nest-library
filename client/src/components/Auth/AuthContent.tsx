@@ -6,7 +6,7 @@ import Color from '../../constants/color';
 import Font from '../../constants/font';
 import ArrowIcon from '../../assets/icons/arrow-icon.svg';
 import Screen from '../../constants/screen';
-import { AuthStackNavigationProp } from '../../screens/AuthScreen';
+import { AuthStackNavigationProp } from '../../screens/Auth/AuthScreen';
 
 interface AuthContentProps extends PropsWithChildren {
   title: string;

@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.19.3",
     "@react-native-community/blur": "^4.3.2",
+    "@react-navigation/drawer": "^6.6.4",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
     "@reduxjs/toolkit": "^1.9.6",
@@ -19,8 +20,9 @@
     "react": "18.2.0",
     "react-hook-form": "^7.46.1",
     "react-native": "^0.72.4",
+    "react-native-gesture-handler": "^2.13.1",
     "react-native-linear-gradient": "^2.8.3",
-    "react-native-reanimated": "^3.5.2",
+    "react-native-reanimated": "3.5.2",
     "react-native-safe-area-context": "^4.7.2",
     "react-native-screens": "^3.25.0",
     "react-native-svg": "^13.14.0",

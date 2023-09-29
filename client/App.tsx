@@ -5,10 +5,12 @@ import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-na
 
 import { store } from './src/store/store';
 import Screen from './src/constants/screen';
-import AuthScreen from './src/screens/AuthScreen';
+import AuthScreen from './src/screens/Auth/AuthScreen';
+import MainScreen from './src/screens/Main/MainScreen';
 
 type RootStackParamList = {
   [Screen.AUTH]: undefined;
+  [Screen.MAIN]: undefined;
 };
 
 export type RootStackNavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -23,6 +25,11 @@ const App: FC = () => {
           <RootStack.Screen
             name={Screen.AUTH}
             component={AuthScreen}
+            options={{ headerShown: false }}
+          />
+          <RootStack.Screen
+            name={Screen.MAIN}
+            component={MainScreen}
             options={{ headerShown: false }}
           />
         </RootStack.Navigator>

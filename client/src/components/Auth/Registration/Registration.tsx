@@ -10,7 +10,7 @@ import { RegistrationStep } from './constants';
 import SecondRegistrationStep, { SecondRegistrationStepValues } from './SecondRegistrationStep';
 import Screen from '../../../constants/screen';
 import RegistrationValues from '../../../interfaces/registration-values';
-import { AuthStackNavigationProp } from '../../../screens/AuthScreen';
+import { AuthStackNavigationProp } from '../../../screens/Auth/AuthScreen';
 import useAppDispatch from '../../../hooks/use-app-dispatch';
 import { registrationThunk } from '../../../store/auth/auth-thunks';
 import useAppSelector from '../../../hooks/use-app-selector';
