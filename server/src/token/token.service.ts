@@ -38,7 +38,7 @@ export class TokenService {
 
   async validateAccessToken(accessToken: string) {
     try {
-      return this.jwtService.verifyAsync(accessToken, {
+      return await this.jwtService.verifyAsync(accessToken, {
         secret: process.env.JWT_ACCESS_SECRET
       });
     } catch {

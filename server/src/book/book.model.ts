@@ -10,10 +10,7 @@ export class Book {
 
   @Prop({ required: true })
   author: string;
-
-  @Prop({ required: true })
-  issueYear: string;
-
+  
   @Prop({ required: true })
   imagePath: string;
 }
