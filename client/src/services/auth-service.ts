@@ -14,6 +14,10 @@ class AuthService {
   static async login(loginData: LoginValues): Promise<AxiosResponse<LoginResponse>> {
     return api.post(ApiUrl.LOGIN, loginData);
   }
+
+  static async refresh(refreshToken: string): Promise<AxiosResponse<LoginResponse>> {
+    return api.post(ApiUrl.REFRESH, { refreshToken });
+  }
 }
 
 export default AuthService;
