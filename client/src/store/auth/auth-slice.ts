@@ -34,7 +34,7 @@ const authSlice = createSlice({
       .addCase(registrationThunk.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(registrationThunk.fulfilled, (state, action) => {
+      .addCase(registrationThunk.fulfilled, (state) => {
         state.isLoading = false;
         state.isSucceed = true;
       })
@@ -72,8 +72,6 @@ const authSlice = createSlice({
       })
       .addCase(loginThunk.rejected, (state, action) => {
         state.isLoading = false;
-
-        console.log(action.error);
 
         switch (action.error.code) {
           case HttpError.BAD_REQUEST:

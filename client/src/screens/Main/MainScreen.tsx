@@ -4,7 +4,7 @@ import { createDrawerNavigator, DrawerNavigationProp } from '@react-navigation/d
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Screen from '../../constants/screen';
-import Library from './Library/Library';
+import LibraryScreen from './Library/LibraryScreen';
 import AsyncStorageKey from '../../constants/async-storage-key';
 import { RootStackNavigationProp } from '../../../App';
 
@@ -34,7 +34,7 @@ const MainScreen: FC = () => {
     <MainDrawer.Navigator>
       <MainDrawer.Screen
         name={Screen.LIBRARY}
-        component={Library}
+        component={LibraryScreen}
       />
     </MainDrawer.Navigator>
   );
