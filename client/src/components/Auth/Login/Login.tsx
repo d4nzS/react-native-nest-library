@@ -1,6 +1,6 @@
 import { FC, useCallback } from 'react';
 import { Alert, StyleSheet } from 'react-native';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import AuthLayout from '../AuthLayout';
@@ -13,21 +13,11 @@ import { loginThunk } from '../../../store/auth/auth-thunks';
 import useAppSelector from '../../../hooks/use-app-selector';
 import authSelectors from '../../../store/auth/auth-selectors';
 import { authActions } from '../../../store/auth/auth-slice';
-import { RootStackNavigationProp } from '../../../screens/Root';
 
 const Login: FC = () => {
-  const navigation = useNavigation<RootStackNavigationProp>();
-  const isSucceed = useAppSelector(authSelectors.isSucceedSelector);
   const dispatch = useAppDispatch();
   const error = useAppSelector(authSelectors.errorSelector);
   const { control, handleSubmit } = useForm<LoginValues>();
-
-  useFocusEffect(useCallback(() => {
-    if (isSucceed) {
-      dispatch(authActions.clearIsSucceed());
-      navigation.navigate(Screen.MAIN);
-    }
-  }, [isSucceed]));
 
   useFocusEffect(useCallback(() => {
     if (error) {

@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { loginThunk, registrationThunk } from './auth-thunks';
 import HttpError from '../../constants/http-error';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import AsyncStorageKey from '../../constants/async-storage-key';
 
 interface AuthState {
@@ -29,7 +29,6 @@ const authSlice = createSlice({
     },
     logout(state) {
       state.isLoggedIn = false;
-
       AsyncStorage.removeItem(AsyncStorageKey.ACCESS_TOKEN);
       AsyncStorage.removeItem(AsyncStorageKey.REFRESH_TOKEN);
     },
@@ -76,7 +75,6 @@ const authSlice = createSlice({
       })
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSucceed = true;
 
         state.isLoggedIn = true;
         AsyncStorage.setItem(AsyncStorageKey.ACCESS_TOKEN, action.payload.accessToken);
