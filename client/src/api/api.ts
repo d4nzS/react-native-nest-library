@@ -4,6 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL } from '@env';
 import AsyncStorageKey from '../constants/async-storage-key';
 import AuthService from '../services/auth-service';
+import { store } from '../store/store';
+import { authActions } from '../store/auth/auth-slice';
 
 const api = axios.create({
   baseURL: API_URL
@@ -42,9 +44,13 @@ api.interceptors.response.use(
 
         return api.request(originalRequest);
       } catch (error) {
+        store.dispatch(authActions.logout());
+
         throw error;
       }
     }
+
+    store.dispatch(authActions.logout());
 
     throw error;
   }
