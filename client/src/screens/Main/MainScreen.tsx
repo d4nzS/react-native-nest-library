@@ -2,7 +2,9 @@ import { FC } from 'react';
 import {
   createDrawerNavigator,
   DrawerContentComponentProps,
-  DrawerContentScrollView, DrawerItem, DrawerItemList,
+  DrawerContentScrollView,
+  DrawerItem,
+  DrawerItemList,
   DrawerNavigationProp
 } from '@react-navigation/drawer';
 

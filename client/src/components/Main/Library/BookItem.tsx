@@ -5,18 +5,14 @@ import Color from '../../../constants/color';
 import BookImage from '../../UI/BookImage';
 import Font from '../../../constants/font';
 import Button from '../../UI/Button';
+import Book from '../../../interfaces/book';
 
-interface BookItemProps {
-  title: string;
-  author: string;
-  imagePath: string;
-}
-
-const BookItem: FC<BookItemProps> = ({
-                                       title,
-                                       author,
-                                       imagePath
-                                     }) => {
+const BookItem: FC<Book> = ({
+                              _id,
+                              title,
+                              author,
+                              imagePath
+                            }) => {
   return (
     <View style={styles.bookItem}>
       <BookImage
@@ -27,7 +23,8 @@ const BookItem: FC<BookItemProps> = ({
       <View style={styles.bookItemInfo}>
         <Text style={styles.bookItemTitle}>{title}</Text>
         <Text style={styles.bookItemAdditionalInfo}>{author}</Text>
-        <Button onPress={() => {}}>
+        <Button onPress={() => {
+        }}>
           Read
         </Button>
       </View>
