@@ -29,6 +29,9 @@ const authSlice = createSlice({
     },
     logout(state) {
       state.isLoggedIn = false;
+
+      AsyncStorage.removeItem(AsyncStorageKey.ACCESS_TOKEN);
+      AsyncStorage.removeItem(AsyncStorageKey.REFRESH_TOKEN);
     },
     clearError(state) {
       delete state.error;
