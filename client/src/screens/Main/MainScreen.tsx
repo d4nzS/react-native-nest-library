@@ -12,6 +12,7 @@ import Screen from '../../constants/screen';
 import LibraryScreen from './Library/LibraryScreen';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import { authActions } from '../../store/auth/auth-slice';
+import ProfileScreen from './Profile/ProfileScreen';
 
 type MainDrawerParamList = {
   [Screen.LIBRARY]: undefined;
@@ -42,6 +43,10 @@ const MainScreen: FC = () => {
       <MainDrawer.Screen
         name={Screen.LIBRARY}
         component={LibraryScreen}
+      />
+      <MainDrawer.Screen
+        name={Screen.PROFILE}
+        component={ProfileScreen}
       />
     </MainDrawer.Navigator>
   );

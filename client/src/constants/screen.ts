@@ -4,7 +4,8 @@ enum Screen {
     LOGIN = 'Login',
 
   MAIN = 'Main',
-    LIBRARY = 'Library'
+    LIBRARY = 'Library',
+    PROFILE = 'Profile'
 }
 
 export default Screen;
