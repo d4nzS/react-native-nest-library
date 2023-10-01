@@ -1,21 +1,32 @@
 import { FC } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+
 import Color from '../../../constants/color';
 import BookImage from '../../UI/BookImage';
 import Font from '../../../constants/font';
 import Button from '../../UI/Button';
 
-const BookItem: FC = () => {
+interface BookItemProps {
+  title: string;
+  author: string;
+  imagePath: string;
+}
+
+const BookItem: FC<BookItemProps> = ({
+                                       title,
+                                       author,
+                                       imagePath
+                                     }) => {
   return (
     <View style={styles.bookItem}>
       <BookImage
-        uri="https://library-cleverland.fra1.digitaloceanspaces.com/03697fa3fb8d15feccdf8786879272a6.webp"
+        path={imagePath}
         width={70}
         height={100}
       />
       <View style={styles.bookItemInfo}>
-        <Text style={styles.bookItemTitle}>xD Boss</Text>
-        <Text style={styles.bookItemAdditionalInfo}>fgfd dg dgsgdfg d </Text>
+        <Text style={styles.bookItemTitle}>{title}</Text>
+        <Text style={styles.bookItemAdditionalInfo}>{author}</Text>
         <Button onPress={() => {}}>
           Read
         </Button>

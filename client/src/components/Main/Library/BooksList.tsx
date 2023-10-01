@@ -8,10 +8,12 @@ import Book from '../../../interfaces/book';
 
 const BooksList: FC = () => {
   const books = useAppSelector(bookSelectors.booksSelector);
-  const renderBookItem = useCallback(({ item }: ListRenderItemInfo<Book>) => <BookItem/>, []);
+
+  const renderBookItem = useCallback(({ item }: ListRenderItemInfo<Book>) => <BookItem {...item}/>, []);
 
   return (
     <FlatList
+      keyExtractor={(item) => item.title}
       renderItem={renderBookItem}
       data={books}
       ItemSeparatorComponent={() => <View style={styles.booksListSeparator}/>}

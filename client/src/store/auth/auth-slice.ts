@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AsyncStorageKey from '../../constants/async-storage-key';
 
 interface AuthState {
+  isLoggedIn: boolean;
   isLoading: boolean;
   isSucceed?: boolean;
   error?: {
@@ -15,6 +16,7 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
+  isLoggedIn: false,
   isLoading: false
 };
 
@@ -22,6 +24,9 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    login(state) {
+      state.isLoggedIn = true;
+    },
     clearError(state) {
       delete state.error;
     },
@@ -54,7 +59,7 @@ const authSlice = createSlice({
             state.error = {
               title: 'Data Not Saved',
               message: 'Something went wrong, and your registration did not complete. Please try again.'
-            }
+            };
 
             return;
         }
@@ -67,6 +72,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isSucceed = true;
 
+        state.isLoggedIn = true;
         AsyncStorage.setItem(AsyncStorageKey.ACCESS_TOKEN, action.payload.accessToken);
         AsyncStorage.setItem(AsyncStorageKey.REFRESH_TOKEN, action.payload.refreshToken);
       })

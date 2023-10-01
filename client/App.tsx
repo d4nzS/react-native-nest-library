@@ -1,39 +1,14 @@
 import { FC } from 'react';
 import { Provider } from 'react-redux';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { store } from './src/store/store';
-import Screen from './src/constants/screen';
-import AuthScreen from './src/screens/Auth/AuthScreen';
-import MainScreen from './src/screens/Main/MainScreen';
+import Root from './src/screens/Root';
 
-type RootStackParamList = {
-  [Screen.AUTH]: undefined;
-  [Screen.MAIN]: undefined;
-};
-
-export type RootStackNavigationProp = NativeStackNavigationProp<RootStackParamList>;
-
-const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const App: FC = () => {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <RootStack.Navigator>
-          <RootStack.Screen
-            name={Screen.MAIN}
-            component={MainScreen}
-            options={{ headerShown: false }}
-          />
-          <RootStack.Screen
-            name={Screen.AUTH}
-            component={AuthScreen}
-            options={{ headerShown: false }}
-          />
-        </RootStack.Navigator>
-      </NavigationContainer>
+      <Root/>
     </Provider>
   );
 };

@@ -1,22 +1,25 @@
 import { FC } from 'react';
 import { Image, StyleSheet } from 'react-native';
+
+import { API_URL } from '@env';
 import Color from '../../constants/color';
 
 interface BookImageProps {
-  uri: string;
+  path: string;
   width: number;
   height: number;
 }
 
 const BookImage: FC<BookImageProps> = ({
-                                         uri,
+                                         path,
                                          width,
                                          height
                                        }) => {
   return <Image
-    source={{ uri }}
+    source={{ uri: `${API_URL}/${path}` }}
     width={width}
     height={height}
+    resizeMode="stretch"
     style={styles.bookImage}
   />
 };
