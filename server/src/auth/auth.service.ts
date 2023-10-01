@@ -79,6 +79,8 @@ export class AuthService {
 
     const tokenFromDb = await this.tokenService.findRefreshToken(refreshToken);
 
+    console.log(tokenFromDb)
+
     if (!tokenFromDb) {
       throw new UnauthorizedException();
     }

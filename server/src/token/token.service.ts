@@ -28,12 +28,20 @@ export class TokenService {
   }
 
   async saveRefreshToken(userId: string, refreshTokenToSave: string): Promise<Token> {
-    const refreshToken = await this.tokenModel.create({
+    const refreshTokenFromDb = await this.tokenModel.findOne({ user: userId });
+
+    if (refreshTokenFromDb) {
+      refreshTokenFromDb.refreshToken = refreshTokenToSave;
+
+      return refreshTokenFromDb.save();
+    }
+
+    const newRefreshToken = await this.tokenModel.create({
       user: userId,
       refreshToken: refreshTokenToSave
     });
 
-    return refreshToken.save();
+    return newRefreshToken.save();
   }
 
   async validateAccessToken(accessToken: string) {

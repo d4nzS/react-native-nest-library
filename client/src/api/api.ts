@@ -27,6 +27,8 @@ api.interceptors.response.use(
     const originalRequest = error.config;
     const refreshTokenFromStorage = await AsyncStorage.getItem(AsyncStorageKey.REFRESH_TOKEN);
 
+    console.log(originalRequest.isRetry)
+
     if (
       refreshTokenFromStorage
       && error.response.status === 401
