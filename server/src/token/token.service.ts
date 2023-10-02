@@ -44,7 +44,7 @@ export class TokenService {
     return newRefreshToken.save();
   }
 
-  async validateAccessToken(accessToken: string) {
+  async validateAccessToken(accessToken: string): Promise<TokenUserDto> {
     try {
       return await this.jwtService.verifyAsync(accessToken, {
         secret: process.env.JWT_ACCESS_SECRET

@@ -64,7 +64,7 @@ export class AuthService {
     return tokens;
   }
 
-  async logout(refreshToken: string) {
+  async logout(refreshToken: string): Promise<{ refreshToken: string }> {
     await this.tokenService.removeRefreshToken(refreshToken);
 
     return { refreshToken };
@@ -78,8 +78,6 @@ export class AuthService {
     }
 
     const tokenFromDb = await this.tokenService.findRefreshToken(refreshToken);
-
-    console.log(tokenFromDb)
 
     if (!tokenFromDb) {
       throw new UnauthorizedException();

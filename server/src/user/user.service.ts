@@ -18,4 +18,8 @@ export class UserService {
   async getUser(prop: keyof UserDocument, value: string): Promise<UserDocument> {
     return this.userModel.findOne({ [prop]: value });
   }
+
+  async getCurrentUser() {
+
+  }
 }
