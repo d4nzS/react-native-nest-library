@@ -1,24 +1,20 @@
 import { FC, useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Screen from '../constants/screen';
 import MainScreen from './Main/MainScreen';
 import AuthScreen from './Auth/AuthScreen';
-import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import useAppSelector from '../hooks/use-app-selector';
 import authSelectors from '../store/auth/auth-selectors';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import AsyncStorageKey from '../constants/async-storage-key';
 import useAppDispatch from '../hooks/use-app-dispatch';
-import { authActions } from '../store/auth/auth-slice';
+import { checkIsLoggedInThunk } from '../store/auth/auth-thunks';
 
 type RootStackParamList = {
   [Screen.AUTH]: undefined;
   [Screen.MAIN]: undefined;
 };
-
-export type RootStackNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -29,12 +25,7 @@ const Root: FC = () => {
 
   useEffect(() => {
     (async () => {
-      const accessToken = await AsyncStorage.getItem(AsyncStorageKey.ACCESS_TOKEN);
-      const refreshToken = await AsyncStorage.getItem(AsyncStorageKey.REFRESH_TOKEN);
-
-      if (accessToken && refreshToken) {
-        dispatch(authActions.login());
-      }
+      await dispatch(checkIsLoggedInThunk());
 
       setIsInitialLoading(false);
     })();

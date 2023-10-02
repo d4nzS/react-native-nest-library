@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 import { API_URL } from '@env';
 import Color from '../../constants/color';
@@ -15,13 +16,12 @@ const BookImage: FC<BookImageProps> = ({
                                          width,
                                          height
                                        }) => {
-  return <Image
+  return <FastImage
     source={{ uri: `${API_URL}/${path}` }}
-    width={width}
-    height={height}
+    defaultSource={require('../../assets/images/default-book-image.png')}
     resizeMode="stretch"
-    style={styles.bookImage}
-  />
+    style={[styles.bookImage, { width, height }]}
+  />;
 };
 
 const styles = StyleSheet.create({

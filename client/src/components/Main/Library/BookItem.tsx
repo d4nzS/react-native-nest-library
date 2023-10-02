@@ -21,8 +21,22 @@ const BookItem: FC<Book> = ({
         height={100}
       />
       <View style={styles.bookItemInfo}>
-        <Text style={styles.bookItemTitle}>{title}</Text>
-        <Text style={styles.bookItemAdditionalInfo}>{author}</Text>
+        <Text
+          numberOfLines={2}
+          ellipsizeMode="tail"
+          maxFontSizeMultiplier={1}
+          style={styles.bookItemTitle}
+        >
+          {title}
+        </Text>
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          maxFontSizeMultiplier={1}
+          style={styles.bookItemAdditionalInfo}
+        >
+          {author}
+        </Text>
         <Button onPress={() => {
         }}>
           Read

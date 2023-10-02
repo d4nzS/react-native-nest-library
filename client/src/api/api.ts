@@ -1,11 +1,11 @@
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 import { API_URL } from '@env';
-import AsyncStorageKey from '../constants/async-storage-key';
+import EncryptedStorageKey from '../constants/encrypted-storage-key';
 import AuthService from '../services/auth-service';
 import { store } from '../store/store';
-import { authActions } from '../store/auth/auth-slice';
+import { logoutThunk } from '../store/auth/auth-thunks';
 
 const api = axios.create({
   baseURL: API_URL
@@ -13,7 +13,7 @@ const api = axios.create({
 
 api.interceptors.request.use(async config => {
   if (!config.url?.includes('auth')) {
-    const accessToken = await AsyncStorage.getItem(AsyncStorageKey.ACCESS_TOKEN);
+    const accessToken = await EncryptedStorage.getItem(EncryptedStorageKey.ACCESS_TOKEN);
 
     config.headers['Authorization'] = `Bearer ${accessToken}`;
   }
@@ -25,7 +25,7 @@ api.interceptors.response.use(
   config => config,
   async error => {
     const originalRequest = error.config;
-    const refreshTokenFromStorage = await AsyncStorage.getItem(AsyncStorageKey.REFRESH_TOKEN);
+    const refreshTokenFromStorage = await EncryptedStorage.getItem(EncryptedStorageKey.REFRESH_TOKEN);
 
     if (
       refreshTokenFromStorage
@@ -39,12 +39,12 @@ api.interceptors.response.use(
         const response = await AuthService.refresh(refreshTokenFromStorage);
         const { accessToken, refreshToken } = response.data;
 
-        await AsyncStorage.setItem(AsyncStorageKey.ACCESS_TOKEN, accessToken);
-        await AsyncStorage.setItem(AsyncStorageKey.REFRESH_TOKEN, refreshToken);
+        await EncryptedStorage.setItem(EncryptedStorageKey.ACCESS_TOKEN, accessToken);
+        await EncryptedStorage.setItem(EncryptedStorageKey.REFRESH_TOKEN, refreshToken);
 
         return api.request(originalRequest);
       } catch (error) {
-        store.dispatch(authActions.logout());
+        store.dispatch(logoutThunk());
 
         throw error;
       }

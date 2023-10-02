@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
-import { loginThunk, registrationThunk } from './auth-thunks';
+import { checkIsLoggedInThunk, loginThunk, logoutThunk, registrationThunk } from './auth-thunks';
 import HttpError from '../../constants/http-error';
-import AsyncStorageKey from '../../constants/async-storage-key';
+import EncryptedStorageKey from '../../constants/encrypted-storage-key';
 
 interface AuthState {
   isLoggedIn: boolean;
@@ -26,11 +26,6 @@ const authSlice = createSlice({
   reducers: {
     login(state) {
       state.isLoggedIn = true;
-    },
-    logout(state) {
-      state.isLoggedIn = false;
-      AsyncStorage.removeItem(AsyncStorageKey.ACCESS_TOKEN);
-      AsyncStorage.removeItem(AsyncStorageKey.REFRESH_TOKEN);
     },
     clearError(state) {
       delete state.error;
@@ -77,8 +72,8 @@ const authSlice = createSlice({
         state.isLoading = false;
 
         state.isLoggedIn = true;
-        AsyncStorage.setItem(AsyncStorageKey.ACCESS_TOKEN, action.payload.accessToken);
-        AsyncStorage.setItem(AsyncStorageKey.REFRESH_TOKEN, action.payload.refreshToken);
+        EncryptedStorage.setItem(EncryptedStorageKey.ACCESS_TOKEN, action.payload.accessToken);
+        EncryptedStorage.setItem(EncryptedStorageKey.REFRESH_TOKEN, action.payload.refreshToken);
       })
       .addCase(loginThunk.rejected, (state, action) => {
         state.isLoading = false;
@@ -100,6 +95,16 @@ const authSlice = createSlice({
 
             return;
         }
+      })
+
+      .addCase(logoutThunk.pending, (state) => {
+        state.isLoggedIn = false;
+        EncryptedStorage.removeItem(EncryptedStorageKey.ACCESS_TOKEN);
+        EncryptedStorage.removeItem(EncryptedStorageKey.REFRESH_TOKEN);
+      })
+
+      .addCase(checkIsLoggedInThunk.fulfilled, (state, action) => {
+        state.isLoggedIn = action.payload;
       })
   }
 });

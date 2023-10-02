@@ -11,8 +11,8 @@ import {
 import Screen from '../../constants/screen';
 import LibraryScreen from './Library/LibraryScreen';
 import useAppDispatch from '../../hooks/use-app-dispatch';
-import { authActions } from '../../store/auth/auth-slice';
 import ProfileScreen from './Profile/ProfileScreen';
+import { logoutThunk } from '../../store/auth/auth-thunks';
 
 type MainDrawerParamList = {
   [Screen.LIBRARY]: undefined;
@@ -26,7 +26,7 @@ const MainDrawerContent: FC<DrawerContentComponentProps> = props => {
   const dispatch = useAppDispatch();
 
   const logoutHandler = (): void => {
-    dispatch(authActions.logout());
+    dispatch(logoutThunk());
   };
 
   return (
