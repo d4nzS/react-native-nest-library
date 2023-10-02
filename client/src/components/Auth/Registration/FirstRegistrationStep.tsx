@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import FormController from '../../UI/FormController';
-import { EMAIL_PATTERN, USERNAME_PATTERN } from './constants';
+import validationPatterns from '../../../constants/validation-patterns';
 import Button from '../../UI/Button';
 import RegistrationValues from '../../../interfaces/registration-values';
 
@@ -32,7 +32,7 @@ const FirstRegistrationStep: FC<FirstRegistrationStepProps> = ({ onComplete }) =
         control={control}
         rules={{
           required: true,
-          pattern: USERNAME_PATTERN
+          pattern: validationPatterns.USERNAME_PATTERN
         }}
       />
       <FormController
@@ -42,7 +42,7 @@ const FirstRegistrationStep: FC<FirstRegistrationStepProps> = ({ onComplete }) =
         control={control}
         rules={{
           required: true,
-          pattern: EMAIL_PATTERN
+          pattern: validationPatterns.EMAIL_PATTERN
         }}
       />
       <Button

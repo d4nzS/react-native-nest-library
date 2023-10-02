@@ -1,9 +1,10 @@
 enum ApiUrl {
   REGISTRATION = '/auth/registration',
   LOGIN = '/auth/login',
+  LOGOUT = '/auth/logout',
   REFRESH = '/auth/refresh',
 
-  BOOKS = '/books'
+  BOOKS = '/books',
 }
 
 export default ApiUrl;
