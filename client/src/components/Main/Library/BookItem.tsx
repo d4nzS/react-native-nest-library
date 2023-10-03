@@ -8,7 +8,7 @@ import Button from '../../UI/Button';
 import Book from '../../../interfaces/book';
 
 const BookItem: FC<Book> = ({
-                              _id,
+                              id,
                               title,
                               author,
                               imagePath

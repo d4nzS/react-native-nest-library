@@ -1,4 +1,4 @@
-import { BadRequestException, Get, Injectable, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { compare, hash } from 'bcrypt';
 
 import { CreateUserDto } from '../user/dtos/create-user.dto';
@@ -7,7 +7,6 @@ import { UserDocument } from '../user/user.model';
 import { TokensDto } from '../token/dtos/tokens.dto';
 import { LoginUserDto } from '../user/dtos/login-user.dto';
 import { TokenService } from '../token/token.service';
-import { AuthGuard } from './auth.guard';
 
 @Injectable()
 export class AuthService {
@@ -83,7 +82,7 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
-    const user = await this.userService.getUser('_id', userData.id);
+    const user = await this.userService.getUser('id', userData.id);
 
     if (!user) {
       throw new UnauthorizedException();

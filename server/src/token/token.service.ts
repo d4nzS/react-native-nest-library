@@ -5,7 +5,7 @@ import { Model } from 'mongoose';
 
 import { TokensDto } from './dtos/tokens.dto';
 import { Token, TokenDocument } from './token.model';
-import { TokenUserDto } from '../user/dtos/token-user.dto';
+import { UserDto } from '../user/dtos/user-dto';
 
 @Injectable()
 export class TokenService {
@@ -13,7 +13,7 @@ export class TokenService {
               @InjectModel(Token.name) private tokenModel: Model<Token>) {
   }
 
-  async generateTokens(payload: TokenUserDto): Promise<TokensDto> {
+  async generateTokens(payload: UserDto): Promise<TokensDto> {
     const accessToken = await this.jwtService.signAsync(payload, {
       secret: process.env.JWT_ACCESS_SECRET,
       expiresIn: process.env.JWT_ACCESS_EXPIRATION
@@ -44,7 +44,7 @@ export class TokenService {
     return newRefreshToken.save();
   }
 
-  async validateAccessToken(accessToken: string): Promise<TokenUserDto> {
+  async validateAccessToken(accessToken: string): Promise<UserDto> {
     try {
       return await this.jwtService.verifyAsync(accessToken, {
         secret: process.env.JWT_ACCESS_SECRET
@@ -54,7 +54,7 @@ export class TokenService {
     }
   }
 
-  async validateRefreshToken(refreshToken: string): Promise<TokenUserDto> {
+  async validateRefreshToken(refreshToken: string): Promise<UserDto> {
     try {
       return await this.jwtService.verifyAsync(refreshToken, {
         secret: process.env.JWT_REFRESH_SECRET

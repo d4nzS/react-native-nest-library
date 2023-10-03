@@ -7,7 +7,7 @@ import bookSelectors from '../../../store/book/book-selectors';
 import Book from '../../../interfaces/book';
 import { BOOK_ITEM_HEIGHT } from './constants';
 
-const keyBookExtractor = (item: Book): string => item._id;
+const keyBookExtractor = (item: Book): string => item.id;
 
 const getBookItemLayout = (_: ArrayLike<Book> | null | undefined, index: number): {
   length: number;

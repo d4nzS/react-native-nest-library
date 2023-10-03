@@ -10,9 +10,7 @@ export class UserController {
   }
 
   @Get('me')
-  getCurrentUser(@Req() request: Request) {
-    console.log(request);
-
-    return this.userService.getCurrentUser();
+  getCurrentUser(@Req() request) {
+    return this.userService.getCurrentUser(request.user._id);
   }
 }

@@ -10,9 +10,19 @@ export class Book {
 
   @Prop({ required: true })
   author: string;
-  
+
   @Prop({ required: true })
   imagePath: string;
 }
 
 export const BookSchema = SchemaFactory.createForClass(Book);
+
+BookSchema.set('toJSON', {
+  transform:
+    (doc, ret) => {
+      ret.id = ret._id;
+
+      delete ret._id;
+      delete ret.__v;
+    }
+});
