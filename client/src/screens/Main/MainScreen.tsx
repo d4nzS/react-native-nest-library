@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import {
   createDrawerNavigator,
   DrawerContentComponentProps,
@@ -13,6 +14,7 @@ import LibraryScreen from './Library/LibraryScreen';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import ProfileScreen from './Profile/ProfileScreen';
 import { logoutThunk } from '../../store/auth/auth-thunks';
+import { getCurrentUserThunk } from '../../store/user/user-thunks';
 
 type MainDrawerParamList = {
   [Screen.LIBRARY]: undefined;
@@ -25,15 +27,21 @@ const MainDrawer = createDrawerNavigator();
 const MainDrawerContent: FC<DrawerContentComponentProps> = props => {
   const dispatch = useAppDispatch();
 
+  useFocusEffect(useCallback(() => {
+    dispatch(getCurrentUserThunk());
+  }, []));
+
   const logoutHandler = (): void => {
     dispatch(logoutThunk());
   };
 
   return (
-    <DrawerContentScrollView {...props}>
-      <DrawerItemList {...props}/>
-      <DrawerItem label="Logout" onPress={logoutHandler}/>
-    </DrawerContentScrollView>
+    <>
+      <DrawerContentScrollView {...props}>
+        <DrawerItemList {...props}/>
+        <DrawerItem label="Logout" onPress={logoutHandler}/>
+      </DrawerContentScrollView>
+    </>
   );
 };
 

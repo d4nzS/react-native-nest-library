@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import FormController from '../../UI/FormController';
-import validationPatterns from '../../../constants/validation-patterns';
+import { validationPatterns } from '../../../constants/validation';
 import Button from '../../UI/Button';
 import RegistrationValues from '../../../interfaces/registration-values';
 

@@ -5,6 +5,8 @@ enum ApiUrl {
   REFRESH = '/auth/refresh',
 
   BOOKS = '/books',
+
+  GET_CURRENT_USER = '/users/me'
 }
 
 export default ApiUrl;
