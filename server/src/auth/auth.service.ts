@@ -33,11 +33,9 @@ export class AuthService {
       throw new BadRequestException('The passwords are not similar');
     }
 
-    const hashedPassword = await hash(password, 5);
-
     const user = await this.userService.createUser({
       ...createUserDto,
-      password: hashedPassword
+      password: await hash(password, 5)
     });
     const tokens = await this.tokenService.generateTokens({
       id: user.id,
@@ -82,7 +80,7 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
-    const user = await this.userService.getUser('id', userData.id);
+    const user = await this.userService.getUser('_id', userData.id);
 
     if (!user) {
       throw new UnauthorizedException();

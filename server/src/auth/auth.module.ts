@@ -9,8 +9,8 @@ import { TokenModule } from '../token/token.module';
 @Module({
   imports: [
     JwtModule.register({}),
-    UserModule,
-    TokenModule
+    TokenModule,
+    UserModule
   ],
   controllers: [AuthController],
   providers: [AuthService]

@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
+
 import { UserService } from './user.service';
 import { User, UserSchema } from './user.model';
 import { UserController } from './user.controller';
+
 import { TokenModule } from '../token/token.module';
 
 @Module({
@@ -11,10 +13,10 @@ import { TokenModule } from '../token/token.module';
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema }
     ]),
-    TokenModule
+    TokenModule,
   ],
+  controllers: [UserController],
   providers: [UserService],
-  exports: [UserService],
-  controllers: [UserController]
+  exports: [UserService]
 })
 export class UserModule {}
