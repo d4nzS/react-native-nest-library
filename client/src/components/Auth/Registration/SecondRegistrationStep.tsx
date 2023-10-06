@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import FormController from '../../UI/FormController';
 import Button from '../../UI/Button';
 import RegistrationValues from '../../../interfaces/registration-values';
+import { PASSWORD_MIN_LENGTH } from '../../../constants/validation';
 
 export type SecondRegistrationStepValues = Pick<RegistrationValues, 'password' | 'confirmPassword'>;
 
@@ -33,7 +34,7 @@ const SecondRegistrationStep: FC<SecondRegistrationStepProps> = ({ onComplete })
         control={control}
         rules={{
           required: true,
-          minLength: 8
+          minLength: PASSWORD_MIN_LENGTH
         }}
       />
       <FormController

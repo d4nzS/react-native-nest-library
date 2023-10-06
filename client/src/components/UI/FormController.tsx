@@ -7,6 +7,7 @@ import Color from '../../constants/color';
 import Font from '../../constants/font';
 
 interface FormControllerProps<T extends FieldValues> extends UseControllerProps<T> {
+  editable?: boolean;
   secureTextEntry?: boolean;
   label: string;
   errorMessage?: string;
@@ -14,6 +15,7 @@ interface FormControllerProps<T extends FieldValues> extends UseControllerProps<
 }
 
 function FormController<T extends FieldValues>({
+                                                 editable = true,
                                                  secureTextEntry,
                                                  name,
                                                  label,
@@ -60,6 +62,7 @@ function FormController<T extends FieldValues>({
         </Animated.Text>
       )}
       <TextInput
+        editable={editable}
         secureTextEntry={secureTextEntry}
         value={value}
         placeholder={isPlaceholderVisible ? label : ''}
@@ -91,7 +94,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Color.GREY_BLACK20,
     borderTopRightRadius: 8,
     borderTopLeftRadius: 8,
-    marginBottom: 48
+    marginBottom: 36
   },
   formControllerOpened: {
     paddingTop: 6,

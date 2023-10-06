@@ -1,11 +1,9 @@
 import { FC } from 'react';
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import Screen from '../constants/screen';
-import LoginScreen from './LoginScreen';
-import RegistrationScreen from './RegistrationScreen';
-import AuthLayout from '../components/Auth/AuthLayout';
-import AuthContent from '../components/Auth/AuthContent';
+import Screen from '../../constants/screen';
+import LoginScreen from './Login/LoginScreen';
+import RegistrationScreen from './Registration/RegistrationScreen';
 
 type AuthStackParamList = {
   [Screen.LOGIN]: undefined;

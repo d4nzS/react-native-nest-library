@@ -1,4 +1,4 @@
-import { BadRequestException, Get, Injectable, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { compare, hash } from 'bcrypt';
 
 import { CreateUserDto } from '../user/dtos/create-user.dto';
@@ -7,7 +7,6 @@ import { UserDocument } from '../user/user.model';
 import { TokensDto } from '../token/dtos/tokens.dto';
 import { LoginUserDto } from '../user/dtos/login-user.dto';
 import { TokenService } from '../token/token.service';
-import { AuthGuard } from './auth.guard';
 
 @Injectable()
 export class AuthService {
@@ -34,11 +33,9 @@ export class AuthService {
       throw new BadRequestException('The passwords are not similar');
     }
 
-    const hashedPassword = await hash(password, 5);
-
     const user = await this.userService.createUser({
       ...createUserDto,
-      password: hashedPassword
+      password: await hash(password, 5)
     });
     const tokens = await this.tokenService.generateTokens({
       id: user.id,
@@ -64,7 +61,7 @@ export class AuthService {
     return tokens;
   }
 
-  async logout(refreshToken: string) {
+  async logout(refreshToken: string): Promise<{ refreshToken: string }> {
     await this.tokenService.removeRefreshToken(refreshToken);
 
     return { refreshToken };

@@ -1,9 +1,10 @@
 import { RootState } from '../store';
 
 const authSelectors = {
-  isLoadingSelector: (state: RootState) => state.auth.isLoading,
-  isSucceedSelector: (state: RootState) => state.auth.isSucceed,
-  errorSelector: (state: RootState) => state.auth.error
+  isLoggedInSelector: ({ auth }: RootState) => auth.isLoggedIn,
+  isLoadingSelector: ({ auth }: RootState) => auth.isLoading,
+  isSucceedSelector: ({ auth }: RootState) => auth.isSucceed,
+  errorSelector: ({ auth }: RootState) => auth.error
 };
 
 export default authSelectors;

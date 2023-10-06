@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
-import { loginThunk, registrationThunk } from './auth-thunks';
+import { checkIsLoggedInThunk, loginThunk, logoutThunk, registrationThunk } from './auth-thunks';
 import HttpError from '../../constants/http-error';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import AsyncStorageKey from '../../constants/async-storage-key';
+import EncryptedStorageKey from '../../constants/encrypted-storage-key';
 
 interface AuthState {
+  isLoggedIn: boolean;
   isLoading: boolean;
   isSucceed?: boolean;
   error?: {
@@ -15,6 +16,7 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
+  isLoggedIn: false,
   isLoading: false
 };
 
@@ -22,6 +24,9 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    login(state) {
+      state.isLoggedIn = true;
+    },
     clearError(state) {
       delete state.error;
     },
@@ -34,7 +39,7 @@ const authSlice = createSlice({
       .addCase(registrationThunk.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(registrationThunk.fulfilled, (state, action) => {
+      .addCase(registrationThunk.fulfilled, (state) => {
         state.isLoading = false;
         state.isSucceed = true;
       })
@@ -54,7 +59,7 @@ const authSlice = createSlice({
             state.error = {
               title: 'Data Not Saved',
               message: 'Something went wrong, and your registration did not complete. Please try again.'
-            }
+            };
 
             return;
         }
@@ -65,15 +70,13 @@ const authSlice = createSlice({
       })
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSucceed = true;
 
-        AsyncStorage.setItem(AsyncStorageKey.ACCESS_TOKEN, action.payload.accessToken);
-        AsyncStorage.setItem(AsyncStorageKey.REFRESH_TOKEN, action.payload.refreshToken);
+        state.isLoggedIn = true;
+        EncryptedStorage.setItem(EncryptedStorageKey.ACCESS_TOKEN, action.payload.accessToken);
+        EncryptedStorage.setItem(EncryptedStorageKey.REFRESH_TOKEN, action.payload.refreshToken);
       })
       .addCase(loginThunk.rejected, (state, action) => {
         state.isLoading = false;
-
-        console.log(action.error);
 
         switch (action.error.code) {
           case HttpError.BAD_REQUEST:
@@ -92,6 +95,16 @@ const authSlice = createSlice({
 
             return;
         }
+      })
+
+      .addCase(logoutThunk.pending, (state) => {
+        state.isLoggedIn = false;
+        EncryptedStorage.removeItem(EncryptedStorageKey.ACCESS_TOKEN);
+        EncryptedStorage.removeItem(EncryptedStorageKey.REFRESH_TOKEN);
+      })
+
+      .addCase(checkIsLoggedInThunk.fulfilled, (state, action) => {
+        state.isLoggedIn = action.payload;
       })
   }
 });

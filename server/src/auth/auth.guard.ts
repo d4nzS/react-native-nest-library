@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException('The user is unauthorized');
     }
 
-    await this.tokenService.validateAccessToken(accessToken);
+    request.user = await this.tokenService.validateAccessToken(accessToken);
 
     return true;
   }

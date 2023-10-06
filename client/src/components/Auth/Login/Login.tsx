@@ -1,5 +1,6 @@
-import { FC, useEffect } from 'react';
+import { FC, useCallback } from 'react';
 import { Alert, StyleSheet } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import AuthLayout from '../AuthLayout';
@@ -18,7 +19,7 @@ const Login: FC = () => {
   const error = useAppSelector(authSelectors.errorSelector);
   const { control, handleSubmit } = useForm<LoginValues>();
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     if (error) {
       Alert.alert(error.title, error.message, [{
           text: 'Retry',
@@ -28,7 +29,7 @@ const Login: FC = () => {
         }]
       );
     }
-  }, [error]);
+  }, [error]));
 
   const onSubmit: SubmitHandler<LoginValues> = data => {
     dispatch(loginThunk(data));

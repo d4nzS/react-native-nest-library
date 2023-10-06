@@ -1,6 +1,6 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useCallback, useRef, useState } from 'react';
 import { Alert, StyleSheet, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 import AuthLayout from '../AuthLayout';
 import Font from '../../../constants/font';
@@ -10,7 +10,7 @@ import { RegistrationStep } from './constants';
 import SecondRegistrationStep, { SecondRegistrationStepValues } from './SecondRegistrationStep';
 import Screen from '../../../constants/screen';
 import RegistrationValues from '../../../interfaces/registration-values';
-import { AuthStackNavigationProp } from '../../../screens/AuthScreen';
+import { AuthStackNavigationProp } from '../../../screens/Auth/AuthScreen';
 import useAppDispatch from '../../../hooks/use-app-dispatch';
 import { registrationThunk } from '../../../store/auth/auth-thunks';
 import useAppSelector from '../../../hooks/use-app-selector';
@@ -25,7 +25,7 @@ const Registration: FC = () => {
   const [registrationStep, setRegistrationStep] = useState<RegistrationStep>(RegistrationStep.FIRST);
   const registrationValues = useRef<Partial<RegistrationValues>>({});
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     if (isSucceed) {
       Alert.alert(
         'Registration Successful',
@@ -38,7 +38,9 @@ const Registration: FC = () => {
         }]
       );
     }
+  }, [isSucceed]));
 
+  useFocusEffect(useCallback(() => {
     if (error) {
       Alert.alert(error.title, error.message, [{
           text: 'Retry',
@@ -49,7 +51,7 @@ const Registration: FC = () => {
         }]
       );
     }
-  }, [isSucceed, error]);
+  }, [error]));
 
   const completeFirstRegistrationStep = (stepValues: FirstRegistrationStepValues): void => {
     setRegistrationStep(RegistrationStep.SECOND);
